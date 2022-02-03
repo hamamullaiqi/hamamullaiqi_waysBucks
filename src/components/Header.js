@@ -12,6 +12,14 @@ export default function Header()  {
         const [modalRegister, setModalRegister] = useState(false);
 
 
+
+        const [isLogin, setIsLogin] = useState(true)
+
+
+
+        
+
+
         return (
             <div className="Navbar" >
                 <Navbar expand="lg"className="py-4 mb-5"  >
@@ -26,11 +34,36 @@ export default function Header()  {
                         </Navbar.Brand>
                         
                         <Nav >
-                            <Stack direction="horizontal" gap={3} >
-                                <Button onClick={() => setModalLogin(true)}  className="px-5 outline-red " >Login</Button>
-                                <Button onClick={() => setModalRegister(true)}  className="bg-red px-5">Register</Button>
-                            </Stack>
-                            
+                           {/* Condition User Login and No Login */}
+                            { 
+                                isLogin ? ( 
+                                    <Stack direction="horizontal" gap={3} >
+                                        <div>
+                                            <img 
+                                                src="./img/cart.svg"
+                                                alt="cart"
+                                            />
+                                        </div>
+                                        <div>
+                                            <img
+                                                src="./img/avatar-user.png"
+                                                alt="avatar-user"
+                                            />
+                                        </div>
+                                        
+                                            
+                                            
+                                            
+                                        
+                                    </Stack>
+
+                                ) : (
+                                    <Stack direction="horizontal" gap={3} >
+                                        <Button onClick={() => setModalLogin(true)}  className="px-5 outline-red " >Login</Button>
+                                        <Button onClick={() => setModalRegister(true)}  className="bg-red px-5">Register</Button>
+                                    </Stack>
+                                ) 
+                            }
                         </Nav>
 
                         
