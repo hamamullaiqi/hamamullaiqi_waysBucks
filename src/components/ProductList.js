@@ -12,7 +12,7 @@ export default function ProductList() {
                 <Container>
                     <h1 className="text-red text-bold mb-4">Let's Order</h1>
                     <Row>
-                        <Col>
+                        <Col >
                             <a href="#">
                                 <Card style={{ width: '16rem' }}  >
                                     <Card.Img variant="top" src="/img/product-1.png" />
@@ -35,7 +35,8 @@ export default function ProductList() {
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
-                        </Col><Col>
+                        </Col>
+                        <Col>
                             <Card style={{ width: '16rem' }} >
                                 <Card.Img variant="top" src="/img/product-1.png" />
                                     <Card.Body className="red-opacity">
@@ -45,7 +46,8 @@ export default function ProductList() {
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
-                        </Col><Col>
+                        </Col>
+                        <Col>
                             <Card style={{ width: '16rem' }} >
                                 <Card.Img variant="top" src="/img/product-1.png" />
                                     <Card.Body className="red-opacity">
