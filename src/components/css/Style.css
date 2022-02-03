@@ -1,0 +1,60 @@
+:root {
+    --red :  #BD0707;
+    
+
+}
+@font-face {
+    font-family:'freight';
+    src: url(/public/font/FreightSansProBold-Regular.woff);
+}
+@font-face {
+    font-family:'avenir-reguler';
+    src: url(/public/font/AvenirLTStd-Roman.otf);
+    font-weight: normal;
+}
+@font-face {
+    font-family:'avenir-bold';
+    src: url(/public/font/AvenirLTStd-Black.otf);
+    font-weight: bold;
+}
+
+body{
+    font-family: 'avenir-reguler';
+    font-size: 1rem;
+}
+
+.bg-red {
+    background-color: var(--red);
+    color: white;
+}
+
+.outline-red {
+    border: 2px solid var(--red);
+    background-color: transparent;
+    color: var(--red);
+}
+
+
+.title {
+    font-family:  'freight' ;
+    font-size: 3.75rem;
+   
+}
+.sub-title {
+    font-size: 1.3rem;
+    
+}
+.text-red {
+    color: var(--red);
+}
+.text-bold {
+    font-family: 'avenir-bold';
+    font-weight: bold;
+}
+.red-opacity {
+    background-color: #F6DADA;
+}
+a {
+    text-decoration: none;
+}
+
