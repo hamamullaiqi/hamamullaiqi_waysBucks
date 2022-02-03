@@ -50,11 +50,6 @@ export default function Header()  {
                                                 alt="avatar-user"
                                             />
                                         </div>
-                                        
-                                            
-                                            
-                                            
-                                        
                                     </Stack>
 
                                 ) : (
