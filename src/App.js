@@ -6,6 +6,7 @@ import Landing from './components/Landing';
 import DetailProduct from './components/DetailProduct';
 import CartPage from './components/CartPage';
 import AddProduct from './components/AddProduct';
+import AddToping from './components/AddToping';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <DetailProduct /> 
       <CartPage />
       <AddProduct />
+      <AddToping/>
     </div>
   );
 }

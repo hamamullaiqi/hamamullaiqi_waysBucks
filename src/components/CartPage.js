@@ -94,15 +94,27 @@ const CartPage = () => {
                             </Col>
 
                             <Col lg={5} className='offset-lg-1' >
-                                <Card className='red-opacity outline-red text-center p-4  '>
-                                    <img 
-                                        src='./img/attache.svg'
-                                        alt='attache-svg'
-                                        width={43.75}
-                                        height={50}
-                                        className='m-auto mb-3'
-                                    />
-                                    <h6>Attache of Transaction</h6>
+                               
+                                <Card className='red-opacity outline-red text-center p-3  '>
+                                    <Form>
+                                        <Form.Label htmlFor='input-attache'>
+                                            <Form.Control 
+                                                id="input-attache"
+                                                className="red-opacity  p-2 mb-4 border-2 border-danger w-100 input-file "
+                                                type="file" 
+                                            />
+                                            <img 
+                                                src='./img/attache.svg'
+                                                alt='attache-svg'
+                                                width={43.75}
+                                                height={50}
+                                                className='m-auto mb-3'
+                                            />
+                                            <h6>Attache of Transaction</h6>
+                                        </Form.Label>
+                                        
+                                    </Form>
+                                    
                                 </Card>
             
 
