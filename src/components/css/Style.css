@@ -68,3 +68,11 @@ a {
     border: 2px solid #dc3545;
     color: #6c757d;
 }
+.bg-light-grey {
+    background-color: #E5E5E5;
+    ;
+}
+.card-transaction {
+    line-height: 80%;
+    font-size: 0.7rem;
+}

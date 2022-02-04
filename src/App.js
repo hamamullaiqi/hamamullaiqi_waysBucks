@@ -7,6 +7,8 @@ import DetailProduct from './components/DetailProduct';
 import CartPage from './components/CartPage';
 import AddProduct from './components/AddProduct';
 import AddToping from './components/AddToping';
+import IncomeTransaction from './components/IncomeTransaction';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
       <CartPage />
       <AddProduct />
       <AddToping/>
+      <IncomeTransaction />
+      <UserProfile />
     </div>
   );
 }
