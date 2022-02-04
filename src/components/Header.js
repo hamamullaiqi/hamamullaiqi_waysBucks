@@ -1,5 +1,5 @@
 import React, {  useState, } from "react";
-import { Navbar, Container, Nav, Button, Stack} from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, Stack, Dropdown,NavDropdown, DropdownButton} from 'react-bootstrap';
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
 
@@ -44,12 +44,42 @@ export default function Header()  {
                                                 alt="cart"
                                             />
                                         </div>
-                                        <div>
-                                            <img
-                                                src="./img/avatar-user.png"
-                                                alt="avatar-user"
-                                            />
-                                        </div>
+                                        
+                                        <Dropdown align="end" title="Dropdown end" id="dropdown-menu-align-end">
+                                            <Dropdown.Toggle  as={Nav.Link} className='Dropdown-Toggle' >
+                                                <img
+                                                    src="./img/avatar-user.png"
+                                                    alt="avatar-user"
+                                                /> 
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu className=" text-bold">
+                                                <Dropdown.Item href="#">
+                                                    <span>
+                                                        <img
+                                                            src="./img/user.svg" 
+                                                            alt="user-profile"
+                                                            width={30}
+                                                            height={30}
+                                                            className="me-3"
+                                                        />
+                                                    </span>Profile</Dropdown.Item>
+                                                <Dropdown.Divider />    
+                                                <Dropdown.Item href="#">
+                                                    <span>
+                                                        <img
+                                                            src="./img/logout.svg" 
+                                                            alt="user-profile"
+                                                            width={30}
+                                                            height={30}
+                                                            className="me-3"
+                                                        />
+                                                    </span>Log Out</Dropdown.Item>
+                                                
+                                            </Dropdown.Menu>
+                                                
+                                        </Dropdown>
+                                                
+                                           
                                     </Stack>
 
                                 ) : (

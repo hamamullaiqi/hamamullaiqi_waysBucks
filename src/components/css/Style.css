@@ -76,3 +76,6 @@ a {
     line-height: 80%;
     font-size: 0.7rem;
 }
+.Dropdown-Toggle::after {
+    display: none;
+}
