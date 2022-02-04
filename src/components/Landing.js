@@ -10,7 +10,7 @@ import ProductList from "./ProductList";
 export default class Landing extends Component {
     render(){
         return(
-            <div className="Landing-Page ">
+            <div className="Landing-Page mb-5 ">
                 <Container className=" mb-5">
                     <Row className="">
                         <Col lg={12}  className="position-relative">

@@ -6,7 +6,7 @@ import { Container, Row, Col, Button  } from "react-bootstrap";
 const DetailProduct = () => {
   return (
        // <Header />
-      <div className='DetailProduct '>
+      <div className='DetailProduct mb-5 '>
 
           <Container>
             <Row className=''>

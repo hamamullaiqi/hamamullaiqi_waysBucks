@@ -58,3 +58,15 @@ a {
     text-decoration: none;
 }
 
+.horizline {
+    border: 1px solid red;
+}
+.input-file {
+    display: none;
+}
+.form-file {
+    border: 2px solid #dc3545;
+    color: #6c757d;
+    
+
+}
