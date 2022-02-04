@@ -76,6 +76,12 @@ a {
     line-height: 80%;
     font-size: 0.7rem;
 }
+.dropdown-item a {
+    color: black;
+}
+.card-text {
+    color: var(--red)
+}
 .Dropdown-Toggle::after {
     display: none;
 }

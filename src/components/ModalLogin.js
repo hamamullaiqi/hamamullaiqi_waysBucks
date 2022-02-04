@@ -3,7 +3,7 @@ import React from "react";
 import {Modal, Form, Stack, Button} from "react-bootstrap"
 
 export default function ModalLogin(props) {
-    
+    console.log(props);
     return(
         <Modal {...props} dialogClassName="modal-md" centered   >
                            
@@ -27,9 +27,9 @@ export default function ModalLogin(props) {
                                         />
                                     </Form.Group>
 
-                                    <Button className="btn bg-red btn-lg mb-3" >Login</Button>
+                                    <Button onClick={props.handleLogin} className="btn bg-red btn-lg mb-3" >Login</Button>
                                     <span className="text-bold">Don't have an account ? Click      
-                                    <a href="" className=" text-red text-bold "> Here</a>
+                                    <a onClick={props.handleRegister} href="#" className=" text-red text-bold "> Here</a>
                                     </span>
                                         
                                     
@@ -37,5 +37,7 @@ export default function ModalLogin(props) {
                                
                             </Modal.Body>
                         </Modal>
+                        
     )
+    
 }

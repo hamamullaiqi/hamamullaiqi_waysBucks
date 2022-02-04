@@ -32,9 +32,9 @@ export default function ModalRegister(props) {
                                         />
                                     </Form.Group>
 
-                                    <Button className="btn bg-red btn-lg mb-3" >Register</Button>
+                                    <Button onClick={props.handleRegister} className="btn bg-red btn-lg mb-3" >Register</Button>
                                     <span className="text-bold">Already have an account ? Click   
-                                    <a href="" className=" text-red text-bold "> Here</a>
+                                    <a onClick={props.handleLogin} href="#" className=" text-red text-bold "> Here</a>
                                     </span>
                                         
                                     
