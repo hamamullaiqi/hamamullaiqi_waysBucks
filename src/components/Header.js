@@ -16,7 +16,7 @@ export default function Header()  {
         const [modalLogin, setModalLogin] = useState(false);
         const [modalRegister, setModalRegister] = useState(false);
         const [isLogin, setIsLogin] = useState(false)
-        const [isAdminLogin, setAdminIsLogin] = useState(true)
+        const [isAdminLogin, setAdminIsLogin] = useState(false)
 
         const navigate = useNavigate()
 
@@ -47,7 +47,7 @@ export default function Header()  {
                            {/* Condition User Login and No Login */}
                             { isLogin && <NavUser handleLogout = {handleLogout}/>}
                             { isAdminLogin && <NavAdmin handleLogout = {() => setAdminIsLogin(false)}/>}
-                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(true)}/>}
+                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(true)} handleModalRegister = {() => setModalRegister(true)} />}
 
 
                             {/* { 

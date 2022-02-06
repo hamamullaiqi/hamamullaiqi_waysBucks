@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
+import PopupOrder from './PopupOrder';
 
-const CartPage = () => {
+export default function CartPage() {
+
+    const [modalPopupOrder, setModalPopupOrder] = useState(false)
+
+
+    
+
   return (
       <div className='CartPage mb-5'>
         <Container>
@@ -12,7 +19,7 @@ const CartPage = () => {
 
                         {/* table card-list */}
                         
-                        <Col lg={6}>
+                        <Col lg={7}>
                             <hr className='horizline'/>
                             <div className='cart-list'>
                             <Row className='my-3 align-items-center'>
@@ -162,18 +169,33 @@ const CartPage = () => {
                                     style={{ height: '150px' }}
                                 />
 
-                                <Button className="btn bg-red mb-3 w-100" >Pay</Button>
+                                <Button onClick={() => {setModalPopupOrder(true)}} className="btn bg-red mb-3 w-100" >Pay</Button>
                             </Form.Group>
+
+                            
                             </Form>
                                
 
                         </Col>
                 
             </Row>
+
+            <PopupOrder 
+                show={modalPopupOrder}
+                onHide={() => setModalPopupOrder(false)}
+                
+                
+            />
+
+            
             
         </Container>
+
+                            
+        
+
       </div>
+      
   )
 };
 
-export default CartPage;

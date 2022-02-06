@@ -24,19 +24,20 @@ function App() {
 
         </div>
         <Routes>
-
+            {/* Public Route */}
           <Route exact path='/' element={<Landing />} />
-
+         
           
+
+          {/* User Route */}
           <Route exact path='/' element={<PrivateRouteUser />} >
-
-          
-            <Route exact path='/detail-product' element={<DetailProduct />} />
             <Route exact path='/user-profile' element={<UserProfile />} />
             <Route exact path='/card-page' element={<CartPage />} />
-
+            <Route exact path='/detail-product' element={<DetailProduct />} />
           </Route>
 
+
+          {/* Admin Route */}
           <Route exact path='/' element={<PrivateRouteAdmin />} >
             <Route exact path='/add-product' element={<AddProduct />} />
             <Route exact path='/add-toping' element={<AddToping />} />

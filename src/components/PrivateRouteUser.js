@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate, Navigate, Outlet } from 'react-router-dom';
 
-const PrivateRouteUser = ({element: Component, ...Rest }) => {
-    const userLogin = false
-    const navigate = useNavigate()
+const PrivateRouteUser = ({element: Component, ...rest }) => {
+
+
+    const userLogin = true
+    
   return (
         userLogin ? <Outlet/> : <Navigate to="/" />
     );

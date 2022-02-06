@@ -25,7 +25,7 @@ const DetailProduct = () => {
 
                 <Col lg={7}>
                     <h1  className="text-red text-bold mb-4">Ice Coffee Palm Sugar</h1>
-                    <p className='mb-5'>Rp.27.000</p>
+                    <h4 className='mb-5 text-red'>Rp.27.000</h4>
 
                     <h5 className="text-red text-bold  " >Toping</h5>
                     <Row className='mb-5'>

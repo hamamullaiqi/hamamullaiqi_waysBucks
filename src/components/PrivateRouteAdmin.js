@@ -1,7 +1,10 @@
 import React from 'react';
 import { useNavigate, Navigate, Outlet } from 'react-router-dom';
 
-const PrivateRouteUser = ({element: Component, ...Rest }) => {
+const PrivateRouteUser = ({element: Component, ...sest }) => {
+
+
+
     const adminLogin = true
 
     
