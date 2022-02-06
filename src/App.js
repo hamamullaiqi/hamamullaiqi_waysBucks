@@ -12,6 +12,9 @@ import UserProfile from './components/UserProfile';
 import { BrowserRouter as Router,Switch,Route,Link, Routes } from "react-router-dom";
 import ModalLogin from './components/ModalLogin';
 import ModalRegister from './components/ModalRegister';
+import PrivateRouteUser from './components/PrivateRouteUser';
+import PrivateRouteAdmin from './components/PrivateRouteAdmin';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
@@ -23,14 +26,25 @@ function App() {
         <Routes>
 
           <Route exact path='/' element={<Landing />} />
-          <Route exact path='/detail-product' element={<DetailProduct />} />
-          <Route exact path='/user-profile' element={<UserProfile />} />
-          <Route exact path='/card-page' element={<CartPage />} />
-          <Route exact path='/add-product' element={<AddProduct />} />
-          <Route exact path='/add-toping' element={<AddToping />} />
-          <Route exact path='/income-transaction' element={<IncomeTransaction />} />
-          {/* <Route exact path='/login' element={<ModalLogin />} />
-          <Route exact path='/register' element={<ModalRegister />} /> */}
+
+          
+          <Route exact path='/' element={<PrivateRouteUser />} >
+
+          
+            <Route exact path='/detail-product' element={<DetailProduct />} />
+            <Route exact path='/user-profile' element={<UserProfile />} />
+            <Route exact path='/card-page' element={<CartPage />} />
+
+          </Route>
+
+          <Route exact path='/' element={<PrivateRouteAdmin />} >
+            <Route exact path='/add-product' element={<AddProduct />} />
+            <Route exact path='/add-toping' element={<AddToping />} />
+            <Route exact path='/income-transaction' element={<IncomeTransaction />} />
+            <Route exact path='/*' element={<NotFound />} /> 
+          </Route>
+          {/* {/* <Route exact path='/login' element={<ModalLogin />} /> */}
+          <Route exact path='*' element={<NotFound />} /> 
 
         </Routes>
       </Router>

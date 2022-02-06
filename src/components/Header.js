@@ -1,8 +1,12 @@
 import React, {  useState, } from "react";
-import { Navbar, Container, Nav, Button, Stack, Dropdown,NavDropdown, DropdownButton} from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import ModalLogin from "./ModalLogin";
 import ModalRegister from "./ModalRegister";
 import { Link, Navigate, useNavigate } from "react-router-dom"
+import { NavPublic } from "./NavPublic";
+import NavUser from "./NavUser";
+import NavAdmin from "./NavAdmin";
+
 
 
 
@@ -12,20 +16,15 @@ export default function Header()  {
         const [modalLogin, setModalLogin] = useState(false);
         const [modalRegister, setModalRegister] = useState(false);
         const [isLogin, setIsLogin] = useState(false)
+        const [isAdminLogin, setAdminIsLogin] = useState(true)
 
         const navigate = useNavigate()
+
 
         const handleLogout = () => {
             setIsLogin(false)
             return navigate(`/`)
         }
-
-        
-
-
-
-        
-
 
         return (
             <div className="Navbar" >
@@ -46,68 +45,19 @@ export default function Header()  {
                         
                         <Nav >
                            {/* Condition User Login and No Login */}
-                            { 
+                            { isLogin && <NavUser handleLogout = {handleLogout}/>}
+                            { isAdminLogin && <NavAdmin handleLogout = {() => setAdminIsLogin(false)}/>}
+                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(true)}/>}
+
+
+                            {/* { 
                                 isLogin ? ( 
-                                    <Stack direction="horizontal" gap={3} >
-                                        <Link to="/card-page">
-                                            <div>
-                                                <img 
-                                                    src="./img/cart.svg"
-                                                    alt="cart"
-                                                />
-                                            </div>
-                                        </Link>
-                                        
-                                        
-                                        <Dropdown align="end" id="dropdown-menu-align-end">
-                                            <Dropdown.Toggle  as={Nav.Link} className='Dropdown-Toggle' >
-                                                <img
-                                                    src="./img/avatar-user.png"
-                                                    alt="avatar-user"
-                                                /> 
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className=" text-bold text-dark">
-                                                <Dropdown.Item >
-                                                    <Link to="/user-profile">
-                                                        <span>
-                                                            <img
-                                                                src="./img/user.svg" 
-                                                                alt="user-profile"
-                                                                width={30}
-                                                                height={30}
-                                                                className="me-3"
-                                                            />
-                                                        </span>Profile
-                                                    </Link>
-                                                </Dropdown.Item>
-                                                <Dropdown.Divider />    
-                                                <Dropdown.Item onClick={handleLogout}>
-                                                    
-                                                    <span>
-                                                        <img
-                                                            src="./img/logout.svg" 
-                                                            alt="user-profile"
-                                                            width={30}
-                                                            height={30}
-                                                            className="me-3"
-                                                        />
-                                                    </span>Log Out</Dropdown.Item>
-                                                
-                                            </Dropdown.Menu>
-                                                
-                                        </Dropdown>
-                                                
-                                           
-                                    </Stack>
+                                    <NavUser handleLogout = {handleLogout} />
 
                                 ) : (
-                                    <Stack direction="horizontal" gap={3} >
-                                        <Button onClick={() => setModalLogin(true)}  className="px-5 outline-red " >Login</Button>
-                                        
-                                        <Button onClick={() => setModalRegister(true)}  className="bg-red px-5">Register</Button>
-                                    </Stack>
+                                   <NavPublic handleModalLogin = {() => setModalLogin(true)} />
                                 ) 
-                            }
+                            } */}
                         </Nav>
 
                         
