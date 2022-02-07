@@ -1,11 +1,29 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
-import { Container, Row, Col, Button  } from "react-bootstrap";
+import { Container, Row, Col, Button, Badge  } from "react-bootstrap";
+import SelectToping from './SelectToping';
 
 const DetailProduct = () => {
+
+    const [selectToping, setSelectToping] = useState({
+        checkToping : false,
+    })
+
+    console.log(selectToping);
+    
+    const checkedToping = () => {
+        setSelectToping ( {
+            ...selectToping,
+            checkToping :  !selectToping.checkToping
+        })
+    }
+
+  
+    
+
   return (
-       // <Header />
+       
       <div className='DetailProduct mb-5 '>
 
           <Container>
@@ -19,7 +37,7 @@ const DetailProduct = () => {
                         
                         
                         
-                        />
+                />
                 
                 </Col>
 
@@ -29,24 +47,37 @@ const DetailProduct = () => {
 
                     <h5 className="text-red text-bold  " >Toping</h5>
                     <Row className='mb-5'>
+                        
                         <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Bubble-Tea-Gelatin.png'
-                                alt='Bubble Tea Gelatin'
+                           
+                            <div onClick={checkedToping}>
+                                <img
+                                    src='./img/Bubble-Tea-Gelatin.png'
+                                    alt='Bubble Tea Gelatin'
+                                    
+                                    
+                                />
+
+                               { selectToping.checkToping && <SelectToping />} 
+                               
+                                <p className='text-red'>Bubble Tea Gelatin</p>
                                 
-                            
-                            />
-                            <p className='text-red'>Bubble Tea Gelatin</p>
+                            </div> 
                         </Col>
 
                         <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Manggo.png'
-                                alt='Manggo'
+                            <div onClick={checkedToping}>
+                                <img
+                                    src='./img/Manggo.png'
+                                    alt='Manggo'
+                                    
                                 
+                                />
+                                { selectToping.checkToping && <SelectToping />} 
+                                <p className='text-red'>Manggo</p>
+
+                            </div>
                             
-                            />
-                            <p className='text-red'>Manggo</p>
                         </Col>
 
 
@@ -57,6 +88,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Green Coconut</p>
                         </Col>
 
@@ -67,6 +99,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Boba Manggo</p>
                         </Col>
 
@@ -77,6 +110,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Bill Berry Boba</p>
                         </Col>
 
@@ -87,6 +121,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Kiwi Popping Pearl</p>
                         </Col>
 
@@ -97,6 +132,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Matcha Cantaloupe</p>
                         </Col>
 
@@ -107,6 +143,7 @@ const DetailProduct = () => {
                                 
                             
                             />
+                             { selectToping.checkToping && <SelectToping />} 
                             <p className='text-red'>Strawberry Popping</p>
                         </Col>
                     </Row>

@@ -15,7 +15,7 @@ export default function Header()  {
 
         const [modalLogin, setModalLogin] = useState(false);
         const [modalRegister, setModalRegister] = useState(false);
-        const [isLogin, setIsLogin] = useState(false)
+        const [isLogin, setIsLogin] = useState(true)
         const [isAdminLogin, setAdminIsLogin] = useState(false)
 
         const navigate = useNavigate()
