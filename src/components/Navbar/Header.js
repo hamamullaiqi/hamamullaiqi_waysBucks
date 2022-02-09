@@ -1,11 +1,11 @@
 import React, {  useState, } from "react";
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import ModalLogin from "./ModalLogin";
-import ModalRegister from "./ModalRegister";
+import ModalLogin from "../Modal/ModalLogin";
+import ModalRegister from "../Modal/ModalRegister";
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import { NavPublic } from "./NavPublic";
-import NavUser from "./NavUser";
-import NavAdmin from "./NavAdmin";
+import  NavPublic  from "../Navbar/NavPublic";
+import NavUser from "../Navbar/NavUser";
+import NavAdmin from "../Navbar/NavAdmin";
 
 
 
@@ -14,8 +14,10 @@ import NavAdmin from "./NavAdmin";
 export default function Header()  {
 
         const [modalLogin, setModalLogin] = useState(false);
+
+        
         const [modalRegister, setModalRegister] = useState(false);
-        const [isLogin, setIsLogin] = useState(true)
+        const [isLogin, setIsLogin] = useState(false)
         const [isAdminLogin, setAdminIsLogin] = useState(false)
 
         const navigate = useNavigate()
@@ -47,7 +49,7 @@ export default function Header()  {
                            {/* Condition User Login and No Login */}
                             { isLogin && <NavUser handleLogout = {handleLogout}/>}
                             { isAdminLogin && <NavAdmin handleLogout = {() => setAdminIsLogin(false)}/>}
-                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(true)} handleModalRegister = {() => setModalRegister(true)} />}
+                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(!modalLogin)} handleModalRegister = {() => setModalRegister(true)} />}
 
 
                             {/* { 
@@ -60,8 +62,10 @@ export default function Header()  {
                             } */}
                         </Nav>
 
+                        {modalLogin && <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} />}
+
                         
-                    <ModalLogin 
+                    {/* <ModalLogin 
                         show={modalLogin}
                         onHide={() => setModalLogin(false)}
                         handleLogin = {()=> {
@@ -72,13 +76,17 @@ export default function Header()  {
                             setModalRegister(true)
                             return(setModalLogin(false))
                         }}
-                    />
+                    /> */}
                     <ModalRegister 
                         show={modalRegister}
                         onHide={() => setModalRegister(false)}
                         handleRegister = {() => {
                             setModalLogin(true)
                             return(setModalRegister(false))
+
+                            // setAdminIsLogin(true)
+                            // setModalRegister(false)
+                            // return navigate ('/income-transaction')
                         }}
                         handleLogin = {()=> {
                             setModalLogin(true)

@@ -4,7 +4,7 @@ import { useNavigate, Navigate, Outlet } from 'react-router-dom';
 const PrivateRouteUser = ({element: Component, ...rest }) => {
 
 
-    const userLogin = true
+    const userLogin = false
     
   return (
         userLogin ? <Outlet/> : <Navigate to="/" />

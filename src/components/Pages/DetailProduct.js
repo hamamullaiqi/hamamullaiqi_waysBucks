@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import Header from './Header';
+import Header from '../Navbar/Header';
 import { Container, Row, Col, Button, Badge  } from "react-bootstrap";
 import SelectToping from './SelectToping';
 
@@ -18,6 +18,8 @@ const DetailProduct = () => {
             checkToping :  !selectToping.checkToping
         })
     }
+
+    
 
   
     
@@ -57,6 +59,8 @@ const DetailProduct = () => {
                                     
                                     
                                 />
+
+                                
 
                                { selectToping.checkToping && <SelectToping />} 
                                

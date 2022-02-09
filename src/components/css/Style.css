@@ -85,3 +85,8 @@ a {
 .Dropdown-Toggle::after {
     display: none;
 }
+
+.btn:hover {
+    background-color: #BD0707 !important;
+    border: none;
+}

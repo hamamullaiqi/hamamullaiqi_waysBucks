@@ -1,14 +1,16 @@
 import  React, { Component } from "react";
 import { Container, Row, Col  } from "react-bootstrap";
-import './css/Landing.css'
+import '../css/Landing.css'
 import ProductList from "./ProductList";
+
  
 
 
 
 
-export default class Landing extends Component {
-    render(){
+export default function Landing() {
+        
+        
         return(
             <div className="Landing-Page mb-5 ">
                 <Container className=" mb-5">
@@ -46,5 +48,5 @@ export default class Landing extends Component {
                 <ProductList/>
             </div>
         )
-    }
+    
 }

@@ -3,9 +3,9 @@ import React from "react";
 import {Modal, Form, Stack, Button} from "react-bootstrap"
 
 export default function ModalLogin(props) {
-    console.log(props);
+     console.log(props);
     return(
-        <Modal {...props} dialogClassName="modal-md" centered   >
+        <Modal show={props.show} onHide={props.onHide} dialogClassName="modal-md" centered   >
                            
                             <Modal.Body className="p-5">
                                 <h1 className="text-red text-bold  mb-5   ">Login</h1>

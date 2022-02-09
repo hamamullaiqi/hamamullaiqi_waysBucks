@@ -1,20 +1,20 @@
 import React from 'react';
-import Header from './components/Header';
+import Header from './components/Navbar/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/css/Style.css'
-import Landing from './components/Landing';
-import DetailProduct from './components/DetailProduct';
-import CartPage from './components/CartPage';
-import AddProduct from './components/AddProduct';
-import AddToping from './components/AddToping';
-import IncomeTransaction from './components/IncomeTransaction';
-import UserProfile from './components/UserProfile';
+import Landing from './components/Pages/Landing';
+import DetailProduct from './components/Pages/DetailProduct';
+import CartPage from './components/Pages/CartPage';
+import AddProduct from './components/Pages/AddProduct';
+import AddToping from './components/Pages/AddToping';
+import IncomeTransaction from './components/Pages/IncomeTransaction';
+import UserProfile from './components/Pages/UserProfile';
 import { BrowserRouter as Router,Switch,Route,Link, Routes } from "react-router-dom";
-import ModalLogin from './components/ModalLogin';
-import ModalRegister from './components/ModalRegister';
-import PrivateRouteUser from './components/PrivateRouteUser';
-import PrivateRouteAdmin from './components/PrivateRouteAdmin';
-import NotFound from './components/NotFound';
+import PrivateRouteAdmin from './components/Route/PrivateRouteAdmin';
+import PrivateRouteUser from './components/Route/PrivateRouteUser';
+import NotFound from './components/Pages/NotFound'
+
+
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         <Routes>
             {/* Public Route */}
           <Route exact path='/' element={<Landing />} />
-         
+          
           
 
           {/* User Route */}

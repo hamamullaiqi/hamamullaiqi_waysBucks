@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
-import PopupOrder from './PopupOrder';
+import PopupOrder from '../Modal/PopupOrder';
 
 export default function CartPage() {
 
