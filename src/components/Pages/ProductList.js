@@ -3,11 +3,25 @@ import { Col, Container, Row, Card } from "react-bootstrap";
 import '../css/ProductList.css'
 import { Link } from "react-router-dom"
 import ModalLogin from '../Modal/ModalLogin'
+import ModalRegister from "../Modal/ModalRegister";
+
 
 
 
 export default function ProductList() {
-   const [state, setState] = useState(true) 
+    const [modalLogin, setModalLogin] = useState(true)
+    const [modalRegister, setModalRegister] = useState(false);
+    
+
+    const handleSwitchRegister = () => {
+        setModalRegister(true)
+        return(setModalLogin(false))
+     }
+     const handleSwitchLogin = () => {
+        setModalLogin(true)
+        return(setModalRegister(false))
+     }
+   
    
    
 
@@ -20,8 +34,8 @@ export default function ProductList() {
                     <h1 className="text-red text-bold mb-4">Let's Order</h1>
                     <Row>
                         <Col >
-
-                                <Card style={{ width: '16rem' }}  onClick={() => setState(true)} >
+                                <div onClick={() => setModalLogin(true)}>
+                                <Card style={{ width: '16rem' }}   >
                                     <Link to="/detail-product">
                                         <Card.Img variant="top" src="/img/product-1.png" />
                                             <Card.Body className="red-opacity">
@@ -32,6 +46,7 @@ export default function ProductList() {
                                             </Card.Body>
                                     </Link>
                                 </Card>
+                                </div>
                            
                         </Col>
                         <Col >
@@ -79,7 +94,8 @@ export default function ProductList() {
                     
 
                     
-                    {state && <ModalLogin show={state} onHide={()=>setState(false)} />}
+                    <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />
+                    <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />
                     
 
                 </Container>

@@ -3,7 +3,7 @@ import React from "react";
 import {Modal, Form, Stack, Button} from "react-bootstrap"
 
 export default function ModalRegister(props) {
-    
+    console.log(props);
     return(
         <Modal {...props} dialogClassName="modal-md" centered   >
                            
@@ -34,7 +34,7 @@ export default function ModalRegister(props) {
 
                                     <Button onClick={props.handleRegister} className="btn bg-red btn-lg mb-3" >Register</Button>
                                     <span className="text-bold">Already have an account ? Click   
-                                    <a onClick={props.handleLogin} href="#" className=" text-red text-bold "> Here</a>
+                                    <a onClick={props.handleSwitchLogin} href="#" className=" text-red text-bold "> Here</a>
                                     </span>
                                         
                                     

@@ -3,7 +3,9 @@ import React from "react";
 import {Modal, Form, Stack, Button} from "react-bootstrap"
 
 export default function ModalLogin(props) {
-     console.log(props);
+    
+     
+
     return(
         <Modal show={props.show} onHide={props.onHide} dialogClassName="modal-md" centered   >
                            
@@ -29,7 +31,7 @@ export default function ModalLogin(props) {
 
                                     <Button onClick={props.handleLogin} className="btn bg-red btn-lg mb-3" >Login</Button>
                                     <span className="text-bold">Don't have an account ? Click      
-                                    <a onClick={props.handleRegister} href="#" className=" text-red text-bold "> Here</a>
+                                    <a onClick={props.handleSwitchRegister} href="#" className=" text-red text-bold "> Here</a>
                                     </span>
                                         
                                     

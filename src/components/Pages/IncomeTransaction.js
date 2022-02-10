@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
+import ModalTransaction from '../Modal/ModalTransaction';
 
 const IncomeTransaction = () => {
+
+    const [state,setState] = useState(false)
+
+
+
   return (
       <div className='IncomeTransaction mb-5'>
 
@@ -25,8 +31,8 @@ const IncomeTransaction = () => {
                         <td>1</td>
                         <td>Sugeng No Pants</td>
                         <td>Cileungsi</td>
-                        <td>16820</td>
-                        <td>69.000</td>
+                        <td >16820 </td>
+                        <td onClick={()=> setState(true)}>69.000</td>
                         <td className='text-warning'>Waiting Approve</td>
 
                         <td className='d-flex justify-content-center'>
@@ -94,7 +100,11 @@ const IncomeTransaction = () => {
 
                 </tbody>
             </Table>
+
+
         </Container>
+
+        {state && <ModalTransaction show={state} onHide={()=>setState(false)} />}
       </div>
 
   );

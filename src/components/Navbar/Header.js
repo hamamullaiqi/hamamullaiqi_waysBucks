@@ -13,10 +13,10 @@ import NavAdmin from "../Navbar/NavAdmin";
 
 export default function Header()  {
 
-        const [modalLogin, setModalLogin] = useState(false);
+       
 
         
-        const [modalRegister, setModalRegister] = useState(false);
+        
         const [isLogin, setIsLogin] = useState(false)
         const [isAdminLogin, setAdminIsLogin] = useState(false)
 
@@ -49,7 +49,7 @@ export default function Header()  {
                            {/* Condition User Login and No Login */}
                             { isLogin && <NavUser handleLogout = {handleLogout}/>}
                             { isAdminLogin && <NavAdmin handleLogout = {() => setAdminIsLogin(false)}/>}
-                            { (!isLogin && !isAdminLogin) && <NavPublic handleModalLogin = {() => setModalLogin(!modalLogin)} handleModalRegister = {() => setModalRegister(true)} />}
+                            { (!isLogin && !isAdminLogin) && <NavPublic  />}
 
 
                             {/* { 
@@ -62,7 +62,7 @@ export default function Header()  {
                             } */}
                         </Nav>
 
-                        {modalLogin && <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} />}
+                       
 
                         
                     {/* <ModalLogin 
@@ -77,7 +77,7 @@ export default function Header()  {
                             return(setModalLogin(false))
                         }}
                     /> */}
-                    <ModalRegister 
+                    {/* <ModalRegister 
                         show={modalRegister}
                         onHide={() => setModalRegister(false)}
                         handleRegister = {() => {
@@ -92,7 +92,7 @@ export default function Header()  {
                             setModalLogin(true)
                             return(setModalRegister(false))
                         }}
-                    />
+                    /> */}
                            
                     </Container >
                 </Navbar>
