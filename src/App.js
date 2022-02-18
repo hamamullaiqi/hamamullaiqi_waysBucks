@@ -40,13 +40,13 @@ function App() {
       <Navigate to ="/" />
     } else {
       if (state.user.status == "admin") {
-        <Navigate to ="/user-profile" />
+        <Navigate to ="/" />
 
       } else if (state.user.status == "customer") {
         <Navigate to ="/" />
       }
     }
-  }, [state]);
+  }, []);
   
 
   const checkUser = async () => {
@@ -69,13 +69,14 @@ function App() {
           if(response.data.data.user.status == "admin") {
               dispatch({
                   type: "ADMIN_SUCCESS",
-                  payload: response.data.data.user,
+                  payload,
                   });
                 
-          } else if(response.data.data.user.status == "customer") {
+          }  
+          if(response.data.data.user.status == "customer") {
               dispatch({
                   type: "USER_SUCCESS",
-                  payload: response.data.data.user,
+                  payload,
                 });
           }
     

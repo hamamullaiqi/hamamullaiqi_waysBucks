@@ -17,7 +17,6 @@ export default function Header()  {
 
         const [state, dispatch] = useContext(UserContext)
         
-        const [isAdminLogin, setAdminIsLogin] = useState(false)
 
         const navigate = useNavigate()
 

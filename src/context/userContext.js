@@ -18,7 +18,7 @@ const reducer = (state, action) => {
       // Set item token to localStorage here ...
       localStorage.setItem("token", payload.token)
       return {
-        ...initialState,
+        
         isLogin: true,
         user: payload,
       };
@@ -28,13 +28,12 @@ const reducer = (state, action) => {
       // Set item token to localStorage here ...
       localStorage.setItem("token", payload.token)
       return {
-        ...initialState,
+        
         isAdminLogin: true,
         user: payload,
       };
     // Creaet case "AUTH_ERROR" here ...
     case "AUTH_ERROR" :
-    
     case "LOGOUT":
       // Remove item token from localStorage here ...
       localStorage.removeItem("token")

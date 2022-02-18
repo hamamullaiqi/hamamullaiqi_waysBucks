@@ -1,6 +1,6 @@
 
 import React, { useContext, useState} from "react";
-import {Modal, Form, Stack, Button} from "react-bootstrap"
+import {Modal, Form, Stack, Button, Alert} from "react-bootstrap"
 import { UserContext } from "../../context/userContext";
 
 
@@ -12,12 +12,17 @@ export default function ModalRegister(props) {
 
     const [state, dispatch] = useContext(UserContext)
 
+    const [message, setMessage] = useState(null)
+
+    
     const [form, setForm] = useState({
         fullname : "",
         email: "",
         password : ""
     })
 
+    
+    
     const { fullname, email, password } = form
 
     const handleChange = (e) => {
@@ -40,15 +45,44 @@ export default function ModalRegister(props) {
 
            const response = await API.post("/register" ,body, config)
            console.log(response.data);
+           console.log(response.error);
 
-          
+        
+
+           const alert = (
+            <Alert variant="success">
+                {response.data.status}
+            </Alert>
+        )
+            
+        
+        setMessage(alert)
            
        } catch (error) {
-           console.log(error);
+           if(error){
+             const alert = (
+                <Alert variant="danger">
+                    Account is Already
+                </Alert>
+            )
+            
+            setMessage(alert)
+ 
+           } else {
+               
+           }
+           
+            const alert = (
+                <Alert variant="danger">
+                    {error.response.data.error.message} 
+                </Alert>
+            )
+            
+            setMessage(alert)
        }
     }
 
-
+    
 
     console.log(props);
     return(
@@ -56,9 +90,11 @@ export default function ModalRegister(props) {
                            
                 <Modal.Body className="p-5">
                     <h1 className="text-red text-bold  mb-5   ">Register</h1>
+                    { message && message}
                     <Stack className="d-grid text-center mb-3 " gap={3}>
-                        <Form.Group>
+                        <Form.Group >
                             <Form.Control
+                                required
                                 className="red-opacity mb-4 p-3 border-2 border-danger"
                                 name = "fullname"
                                 onChange={handleChange}
@@ -66,6 +102,8 @@ export default function ModalRegister(props) {
                                 id="inputName"
                                 placeholder="fullName"
                             />
+                                
+                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                             <Form.Control
                                 className="red-opacity mb-4 p-3 border-2 border-danger"
                                 name = "email"

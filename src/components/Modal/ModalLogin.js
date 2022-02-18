@@ -1,6 +1,6 @@
 
 import React, { useContext, useState } from "react";
-import {Modal, Form, Stack, Button} from "react-bootstrap"
+import {Modal, Form, Stack, Button, Alert} from "react-bootstrap"
 import  PropTypes  from "prop-types";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { API } from '../../config/api'
 
 
+
 export default function ModalLogin(props) {
 
     const navigate = useNavigate()
@@ -17,6 +18,8 @@ export default function ModalLogin(props) {
 
     const [state, dispatch] = useContext(UserContext)
     console.log(state);
+
+    const [message, setMessage] = useState(null)
     
 
     const [form, setForm] = useState({
@@ -45,7 +48,7 @@ export default function ModalLogin(props) {
 
            const body = JSON.stringify(form)
 
-           const response = await API.post("/login" , body, config)
+           const response = await API.post("/login" , body, config,)
            console.log(response.data.data.user);
 
            if (response?.status == 200) {
@@ -58,7 +61,7 @@ export default function ModalLogin(props) {
                     navigate("/income-transaction")
             } else if (response.data.data.user.status == "customer") {
                 dispatch({
-                    type: "USER_SUCCESS",
+                    type: "LOGIN_SUCCESS",
                     payload: response.data.data.user,
                     });
                     navigate("/")
@@ -69,8 +72,12 @@ export default function ModalLogin(props) {
                 navigate("/")
             }
 
-
-
+            const alert = (
+                <Alert variant="danger">
+                    {response.data.status}
+                </Alert>
+            )
+            setMessage(alert)
             // if (response.data.data.user.status == "admin") {
             //     navigate("/income-transaction");
             //   } else {
@@ -79,6 +86,12 @@ export default function ModalLogin(props) {
            
        } catch (error) {    
            console.log(error);
+           const alert = (
+            <Alert variant="danger">
+                Email or Password Not match!
+            </Alert>    
+        )
+        setMessage(alert)
        }
     }
 
@@ -93,7 +106,9 @@ export default function ModalLogin(props) {
             
                 <Modal.Body className="p-5">
                     <h1 className="text-red text-bold  mb-5   ">Login</h1>
+                    {message && message}
                     <Stack className="d-grid text-center mb-3 " gap={3}>
+                        
                         <Form.Group >
                             
                             <Form.Control

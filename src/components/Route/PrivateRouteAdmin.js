@@ -11,7 +11,7 @@ const PrivateRouteAdmin = ({element: Component, ...rest }) => {
     
     
   return (
-        state.isAdminLogin ? <Outlet/> : <Navigate to="/income-transaction"/>
+        state.isAdminLogin ? <Outlet/> : <Navigate to="/"/>
     );
 };
 
