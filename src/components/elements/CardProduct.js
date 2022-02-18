@@ -1,19 +1,27 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import { Link } from "react-router-dom"
 
-const CardProduct = () => {
+
+const CardProduct = ({item}) => {
+
+
   return (
-    <Card style={{ width: '16rem' }}  >
-                                                                         
-        <Card.Img variant="top" src="/img/product-1.png"   />
-            <Card.Body className="red-opacity">
-                <Card.Title className="text-red text-bold">Ice Coffee Palm Sugar</Card.Title>
-                <Card.Text> 
-                    Rp.27.000
-                </Card.Text>
-            </Card.Body>
+    <Link to="/detail-product" >
+      <Card className='my-' style={{ width: '16rem' }}  >
+                                                                          
+          <Card.Img variant="top" className='image-card' src={item.image} alt={item.name} />
+          
+            
+              <Card.Body className="red-opacity">
+                  <Card.Title className="text-red text-bold">{item.title}</Card.Title>
+                  <Card.Text> 
+                  {item.price}
+                  </Card.Text>
+              </Card.Body>
 
-    </Card>
+      </Card>
+    </Link>
   )
 }
 

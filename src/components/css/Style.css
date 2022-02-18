@@ -98,3 +98,10 @@ a {
     background-color: #BD0707 !important;
     border: none;
 }
+
+.image-card {
+    max-width: 16rem;
+    height: 18rem;
+    object-fit: cover;
+
+}

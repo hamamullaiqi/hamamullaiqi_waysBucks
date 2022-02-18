@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import '../css/ProductList.css'
 import { Link } from "react-router-dom"
@@ -8,14 +8,34 @@ import CardProduct from "../elements/CardProduct";
 import { UserContext } from "../../context/userContext";
 
 
-
+//API 
+import { API } from '../../config/api'
 
 export default function ProductList() {
     const [modalLogin, setModalLogin] = useState(false)
     const [modalRegister, setModalRegister] = useState(false);
     
     const [state, dispatch] = useContext(UserContext)
-    
+
+    const [products, setProducts] = useState([])
+
+    const getProducts = async () => {
+        try {
+
+            const response = await API.get("/products")
+
+            setProducts(response.data.data.products)
+            console.log(response.data.data);
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getProducts()
+    }, [])
+
 
     const handleSwitchRegister = () => {
         setModalRegister(true)
@@ -27,19 +47,8 @@ export default function ProductList() {
      }
 
      
-     
+    
 
-     const showModal = () => {
-        setModalLogin(true)
-        
-    }
-
-     
-   
-   
-   
-
-    console.log();
     
         
         return (
@@ -48,60 +57,28 @@ export default function ProductList() {
                 <Container > 
                     <h1 className="text-red text-bold mb-4">Let's Order</h1>
                     <Row>
-                        <Col >
+                       
                             {
-                                state.isLogin ? 
-                                <Link to="/detail-product" >
-                                    <CardProduct />
-                                </Link>
-                                :
+                                // state.isLogin ? (
+                                    products.length !== 0 ? (
+                                <>
+                                    {products.map((item, index) => (
+                                        
+                                        <Col>
+                                            <>
+                                                
+                                                <CardProduct item={item} key={index} />
+                                            </>
+                                        </Col>
+                                        
+                                    ))}
+                                </>
+                                ) : (
                                 <div  onClick={()=> setModalLogin(true)}> 
-                                    <CardProduct />
+                                    PRODUCT NOT FOUND
                                 </div>
-                            }    
+                            )}    
                                 
-                                
-                           
-                        </Col>
-                        <Col >
-                            <Link to="/detail-product">
-                                <Card style={{ width: '16rem' }}  >
-                                    <Card.Img variant="top" src="/img/product-1.png" />
-                                        <Card.Body className="red-opacity">
-                                            <Card.Title className="text-red text-bold">Ice Coffee Palm Sugar</Card.Title>
-                                            <Card.Text> 
-                                                Rp.27.000
-                                            </Card.Text>
-                                        </Card.Body>
-                                </Card>
-                            </Link>
-                        </Col>
-                        <Col >
-                            <Link to="/detail-product">
-                                <Card style={{ width: '16rem' }}  >
-                                    <Card.Img variant="top" src="/img/product-1.png" />
-                                        <Card.Body className="red-opacity">
-                                            <Card.Title className="text-red text-bold">Ice Coffee Palm Sugar</Card.Title>
-                                            <Card.Text> 
-                                                Rp.27.000
-                                            </Card.Text>
-                                        </Card.Body>
-                                </Card>
-                            </Link>
-                        </Col>
-                        <Col >
-                            <Link to="/detail-product">
-                                <Card style={{ width: '16rem' }}  >
-                                    <Card.Img variant="top" src="/img/product-1.png" />
-                                        <Card.Body className="red-opacity">
-                                            <Card.Title className="text-red text-bold">Ice Coffee Palm Sugar</Card.Title>
-                                            <Card.Text> 
-                                                Rp.27.000
-                                            </Card.Text>
-                                        </Card.Body>
-                                </Card>
-                            </Link>
-                        </Col>
                         
                     </Row>
 
