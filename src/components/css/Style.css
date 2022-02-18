@@ -86,7 +86,15 @@ a {
     display: none;
 }
 
-.btn:hover {
+.btn-red:hover {
+    background-color: #BD0707 !important;
+    border: none !important;
+}
+.btn-red::before  {
+    background-color: #BD0707 !important;
+    border: none;
+}
+.btn-red:link  {
     background-color: #BD0707 !important;
     border: none;
 }

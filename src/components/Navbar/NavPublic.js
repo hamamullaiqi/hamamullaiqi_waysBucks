@@ -7,7 +7,7 @@ export default function NavPublic ()  {
 
     const [modalLogin, setModalLogin] = useState(false)
     const [modalRegister, setModalRegister] = useState(false);
-    const handleModalLogin = () => setModalLogin(!modalLogin)
+    const handleModalLogin = () => setModalLogin(true)
     const handleModalRegister = () => setModalRegister(true)
 
     const handleSwitchRegister = () => {
@@ -23,12 +23,12 @@ export default function NavPublic ()  {
 
         <>
             <Stack direction="horizontal" gap={3} >
-                <Button  onClick={handleModalLogin} className="btn px-5 outline-red " >Login</Button>
+                <Button  onClick={handleModalLogin} className="btn-red px-5 outline-red " variant="light" >Login</Button>
                 
-                <Button  onClick={handleModalRegister}  className="bg-red px-5">Register</Button>
+                <Button  onClick={handleModalRegister}  className="btn-red bg-red px-5" variant="light">Register</Button>
             </Stack>
-                <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />
-                <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />
+                {modalLogin && <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />}
+                {modalRegister && <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />}
         </>
     )
 };

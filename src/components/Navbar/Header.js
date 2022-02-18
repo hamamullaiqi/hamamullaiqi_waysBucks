@@ -1,4 +1,4 @@
-import React, {  useState, } from "react";
+import React, {  useState, useContext } from "react";
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import ModalLogin from "../Modal/ModalLogin";
 import ModalRegister from "../Modal/ModalRegister";
@@ -6,6 +6,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import  NavPublic  from "../Navbar/NavPublic";
 import NavUser from "../Navbar/NavUser";
 import NavAdmin from "../Navbar/NavAdmin";
+import { UserContext } from "../../context/userContext";
+
 
 
 
@@ -13,18 +15,17 @@ import NavAdmin from "../Navbar/NavAdmin";
 
 export default function Header()  {
 
-       
-
+        const [state, dispatch] = useContext(UserContext)
         
-        
-        const [isLogin, setIsLogin] = useState(false)
         const [isAdminLogin, setAdminIsLogin] = useState(false)
 
         const navigate = useNavigate()
 
 
         const handleLogout = () => {
-            setIsLogin(false)
+            dispatch({
+                type: "LOGOUT"
+            })
             return navigate(`/`)
         }
 
@@ -47,9 +48,11 @@ export default function Header()  {
                         
                         <Nav >
                            {/* Condition User Login and No Login */}
-                            { isLogin && <NavUser handleLogout = {handleLogout}/>}
-                            { isAdminLogin && <NavAdmin handleLogout = {() => setAdminIsLogin(false)}/>}
-                            { (!isLogin && !isAdminLogin) && <NavPublic  />}
+                            {/* { state.isLogin && <NavUser handleLogout = {handleLogout}/>} */}
+                            { state.isLogin && <NavUser handleLogout={handleLogout} />}
+
+                            { state.isAdminLogin && <NavAdmin handleLogout={handleLogout}/>}
+                            { (!state.isLogin && !state.isAdminLogin) && <NavPublic  />}
 
 
                             {/* { 

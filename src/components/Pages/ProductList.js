@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import '../css/ProductList.css'
 import { Link } from "react-router-dom"
 import ModalLogin from '../Modal/ModalLogin'
 import ModalRegister from "../Modal/ModalRegister";
+import CardProduct from "../elements/CardProduct";
+import { UserContext } from "../../context/userContext";
 
 
 
 
 export default function ProductList() {
-    const [modalLogin, setModalLogin] = useState(true)
+    const [modalLogin, setModalLogin] = useState(false)
     const [modalRegister, setModalRegister] = useState(false);
+    
+    const [state, dispatch] = useContext(UserContext)
     
 
     const handleSwitchRegister = () => {
@@ -21,6 +25,16 @@ export default function ProductList() {
         setModalLogin(true)
         return(setModalRegister(false))
      }
+
+     
+     
+
+     const showModal = () => {
+        setModalLogin(true)
+        
+    }
+
+     
    
    
    
@@ -29,24 +43,24 @@ export default function ProductList() {
     
         
         return (
-            <div className="product-list mb-5">
-                <Container>
+            <>
+            <div className="product-list mb-5"   >
+                <Container > 
                     <h1 className="text-red text-bold mb-4">Let's Order</h1>
                     <Row>
                         <Col >
-                                <div onClick={() => setModalLogin(true)}>
-                                <Card style={{ width: '16rem' }}   >
-                                    <Link to="/detail-product">
-                                        <Card.Img variant="top" src="/img/product-1.png" />
-                                            <Card.Body className="red-opacity">
-                                                <Card.Title className="text-red text-bold">Ice Coffee Palm Sugar</Card.Title>
-                                                <Card.Text> 
-                                                    Rp.27.000
-                                                </Card.Text>
-                                            </Card.Body>
-                                    </Link>
-                                </Card>
+                            {
+                                state.isLogin ? 
+                                <Link to="/detail-product" >
+                                    <CardProduct />
+                                </Link>
+                                :
+                                <div  onClick={()=> setModalLogin(true)}> 
+                                    <CardProduct />
                                 </div>
+                            }    
+                                
+                                
                            
                         </Col>
                         <Col >
@@ -94,13 +108,14 @@ export default function ProductList() {
                     
 
                     
-                    <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />
-                    <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />
-                    
+                   
 
                 </Container>
 
-               
+                { modalLogin && <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />}
+                { modalRegister && <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />}
+                    
             </div>
+            </>
         )
     }

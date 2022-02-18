@@ -1,19 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 import { useNavigate, Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRouteAdmin = ({element: Component, ...rest }) => {
 
 
-
-    const adminLogin = false
-
     
-    
+    const [state] = useContext(UserContext)
 
     
     
   return (
-       adminLogin ? <Outlet /> : <Navigate to="/income-transaction" />
+        state.isAdminLogin ? <Outlet/> : <Navigate to="/income-transaction"/>
     );
 };
 
