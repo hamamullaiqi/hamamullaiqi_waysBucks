@@ -1,23 +1,42 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Navbar/Header';
 import { Container, Row, Col, Button, Badge  } from "react-bootstrap";
 import SelectToping from './SelectToping';
 
+
+import { API } from '../../config/api'
+
+
 const DetailProduct = () => {
 
-    const [selectToping, setSelectToping] = useState({
-        checkToping : false,
-    })
+    
+
+    const [selectToping, setSelectToping] = useState([])
 
     console.log(selectToping);
     
-    const checkedToping = () => {
-        setSelectToping ( {
-            ...selectToping,
-            checkToping :  !selectToping.checkToping
-        })
+    
+
+    const [toppings, setToppings] = useState([])
+
+    const getToppings = async () => {
+        try {
+
+            const response = await API.get("/toppings")
+
+            setToppings(response.data.data.topping)
+            console.log(response.data.data)
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
+
+    useEffect(() => {
+        getToppings()
+    }, [])
 
     
 
@@ -43,113 +62,42 @@ const DetailProduct = () => {
                 
                 </Col>
 
+
                 <Col lg={7}>
                     <h1  className="text-red text-bold mb-4">Ice Coffee Palm Sugar</h1>
                     <h4 className='mb-5 text-red'>Rp.27.000</h4>
 
                     <h5 className="text-red text-bold  " >Toping</h5>
                     <Row className='mb-5'>
-                        
-                        <Col lg={3} className='text-center p-2'>
+                        {toppings.length !== 0 ? (
+                            <>
+                            {toppings.map((item, index) => (
+                                <Col lg={3} className='text-center p-2'>
                            
-                            <div onClick={checkedToping}>
-                                <img
-                                    src='./img/Bubble-Tea-Gelatin.png'
-                                    alt='Bubble Tea Gelatin'
+                                <div onClick={()=> setSelectToping(item)} key={index}>
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        
+                                        
+                                    />
+    
+                                   { selectToping === item ? <SelectToping /> : ""} 
+                                   
+                                    <p className='text-red'>{item.title}</p>
                                     
-                                    
-                                />
+                                </div> 
+                            </Col>
 
-                                
-
-                               { selectToping.checkToping && <SelectToping />} 
-                               
-                                <p className='text-red'>Bubble Tea Gelatin</p>
-                                
-                            </div> 
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <div onClick={checkedToping}>
-                                <img
-                                    src='./img/Manggo.png'
-                                    alt='Manggo'
-                                    
-                                
-                                />
-                                { selectToping.checkToping && <SelectToping />} 
-                                <p className='text-red'>Manggo</p>
-
-                            </div>
-                            
-                        </Col>
-
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Green-Coconut.png'
-                                alt='Green Coconut'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Green Coconut</p>
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Boba-Manggo.png'
-                                alt='Boba Manggo'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Boba Manggo</p>
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Bill-Berry-Boba.png'
-                                alt='Bill Berry Boba'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Bill Berry Boba</p>
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Kiwi-Popping-Pearl.png'
-                                alt='Kiwi Popping Pearl'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Kiwi Popping Pearl</p>
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Matcha-Cantaloupe.png'
-                                alt='Matcha Cantaloupe'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Matcha Cantaloupe</p>
-                        </Col>
-
-                        <Col lg={3} className='text-center p-2'>
-                            <img
-                                src='./img/Strawberry-Popping.png'
-                                alt='Strawberry Popping'
-                                
-                            
-                            />
-                             { selectToping.checkToping && <SelectToping />} 
-                            <p className='text-red'>Strawberry Popping</p>
-                        </Col>
+                            ))}
+                            </>
+                        ) : (
+                        <>
+                            <p>TOPING KOSONG</p>
+                        </>) 
+                        }
+                        
+                        
                     </Row>
                     <Row className='mb-5 '>
                         <Col lg={6}>

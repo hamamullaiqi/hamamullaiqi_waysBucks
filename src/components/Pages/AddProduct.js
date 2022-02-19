@@ -82,8 +82,8 @@ export default function AddProduct()  {
                                                        
                                 
                                 <Form.Control
-                                     name="price"
-                                     onChange={handleChange}
+                                    name="price"
+                                    onChange={handleChange}
                                     className="red-opacity  p-2 mb-4 border-2 border-danger"
                                     type="number"
                                     id="inputPrice"

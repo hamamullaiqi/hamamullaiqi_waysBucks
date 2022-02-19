@@ -8,7 +8,7 @@ const CardProduct = ({item}) => {
 
   return (
     <Link to="/detail-product" >
-      <Card className='my-' style={{ width: '16rem' }}  >
+      <Card className='my-3' style={{ width: '16rem' }}  >
                                                                           
           <Card.Img variant="top" className='image-card' src={item.image} alt={item.name} />
           

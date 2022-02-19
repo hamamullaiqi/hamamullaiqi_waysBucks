@@ -54,9 +54,9 @@ export default function ProductList() {
         return (
             <>
             <div className="product-list mb-5"   >
-                <Container > 
+                <Container  > 
                     <h1 className="text-red text-bold mb-4">Let's Order</h1>
-                    <Row>
+                    <Row  >
                        
                             {
                                 // state.isLogin ? (
@@ -64,11 +64,11 @@ export default function ProductList() {
                                 <>
                                     {products.map((item, index) => (
                                         
-                                        <Col>
-                                            <>
+                                        <Col lg={3}>
+                                            <div className="d-flex justify-content-start">
                                                 
                                                 <CardProduct item={item} key={index} />
-                                            </>
+                                            </div>
                                         </Col>
                                         
                                     ))}

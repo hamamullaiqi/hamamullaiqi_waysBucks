@@ -1,7 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form,Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+
+import { API } from '../../config/api'
 
 const AddToping = () => {
+    const navigate = useNavigate()
+    //image privew
+    const [preview, setPreview] = useState(null); 
+    //store wih useState 
+    
+    const [form, setForm] = useState({
+        title: "",
+        price: "",
+        image: ""
+    })
+
+    const handleChange = (e) => {
+        setForm({
+          ...form,
+          [e.target.name]:
+            e.target.type === "file" ? e.target.files : e.target.value,
+        });
+
+        if (e.target.type === "file") {
+            let url = URL.createObjectURL(e.target.files[0]);
+            setPreview(url);
+          }
+        };
+
+
+        const  handleSubmit = async (e) => {
+            try {
+                e.preventDefault()
+     
+                 const config = {
+                     headers : {
+                        "Content-type": "multipart/form-data",
+                     }
+                }
+     
+                const formData = new FormData();
+                formData.set("title", form.title);
+                formData.set("price", form.price);
+                formData.set("image", form.image[0], form.image[0].name);
+
+                
+     
+                const response = await API.post("/topping" , formData, config)
+                console.log(response);
+                
+     
+             
+                
+                navigate("/")
+                
+            } catch (error) {
+                console.log(error);
+         }
+
+        }
   return (
 
             <div className='AddToping mb-5'>
@@ -14,6 +72,8 @@ const AddToping = () => {
                             <Form >
                             <Form.Group>
                                     <Form.Control
+                                        name="title"
+                                        onChange={handleChange}
                                         className="red-opacity mb-4 p-2 border-2 border-danger"
                                         type="text"
                                         id="inputNameToping"
@@ -22,6 +82,8 @@ const AddToping = () => {
                                                     
                                     
                                     <Form.Control
+                                        name="price"
+                                        onChange={handleChange}
                                         className="red-opacity  p-2 mb-4 border-2 border-danger"
                                         type="number"
                                         id="inputPrice"
@@ -31,6 +93,8 @@ const AddToping = () => {
                                         
                                     <Form.Label htmlFor='input-file' className='red-opacity  p-2 mb-5 rounded w-100 form-file '>
                                         <Form.Control 
+                                            name="image"
+                                            onChange={handleChange}
                                             id="input-file"
                                             className="red-opacity  p-2 mb-4 border-2 border-danger w-100 input-file"
                                             type="file" 
@@ -44,7 +108,7 @@ const AddToping = () => {
                                         </Form.Label>
                                         <Row className='justify-content-center'>
                                             <Col lg={10}>
-                                                <Button className="btn bg-red mb-3 w-100  " >Add Toping</Button>
+                                                <Button onClick={handleSubmit} className="btn bg-red mb-3 w-100  " >Add Toping</Button>
                                             </Col>
                                         </Row>
                                     
@@ -57,10 +121,15 @@ const AddToping = () => {
 
                             <img 
 
-                                src='./img/TopingDet1.png'
+                                src={preview}
                                 alt='product-detail'
-                                width={436}
-                                height={555}
+
+                                style= {{
+                                    width:"436px",
+                                    height:"555px",
+                                    objectFit : "cover",
+                                    borderRadius : "32px"
+                                }}
                                     
                             
                             />
