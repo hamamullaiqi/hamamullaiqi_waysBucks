@@ -105,7 +105,7 @@ function App() {
           <Route exact path='/' element={<PrivateRouteUser />} >
             <Route exact path='/user-profile' element={<UserProfile />} />
             <Route exact path='/card-page' element={<CartPage />} />
-            <Route exact path='/detail-product' element={<DetailProduct />} />
+            <Route exact path='/detail-product/:id' element={<DetailProduct />} />
             <Route exact path='/*' element={<NotFound />} /> 
           </Route>
 

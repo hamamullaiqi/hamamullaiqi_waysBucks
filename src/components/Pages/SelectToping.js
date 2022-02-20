@@ -6,7 +6,7 @@ const selectToping = () => {
          <>
             <span  className='position-absolute'>
                 <img 
-                    src='./img/check.svg'
+                    src='../img/check.svg'
                 />
                 
             </span>

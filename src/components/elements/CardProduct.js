@@ -7,7 +7,7 @@ const CardProduct = ({item}) => {
 
 
   return (
-    <Link to="/detail-product" >
+    <Link to={`/detail-product/${item.id}`} >
       <Card className='my-3' style={{ width: '16rem' }}  >
                                                                           
           <Card.Img variant="top" className='image-card' src={item.image} alt={item.name} />
