@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 
 import { API } from '../../config/api'
 import TopingList from '../elements/TopingList';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom/cjs/react-dom.development';
 
 export const data = []
 
@@ -17,7 +18,7 @@ const DetailProduct = () => {
     
     const [productData, setProductData] = useState([])
 
-    const handleClick = () => { 
+    const handleAddCart = () => { 
         const topping = data[0].filter(topping => topping.checked === true)
         
         console.log(topping);
@@ -27,20 +28,32 @@ const DetailProduct = () => {
 
     console.log(total);
 
-    const [check, setCheck] = useState(false)
     
-   console.log(check);
-    // const getProduct = async () => {
-    //     try {
 
-    //         const response = await API.get(`/product/${id}`)
-    //         setProduct(response.data.data.product)
-    //         console.log(response)
-            
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+   const handleClick = () => {
+    const topping = data[0].filter(topping => topping.checked === true)
+    console.log(topping);
+    console.log(topping.length);
+
+    let priceToppings = topping.map(total => total.price)
+
+    let totalPay = topping.reduce((priceTopping, element) => {
+        return priceTopping + element.price
+    }, 0)
+    
+    
+    console.log(priceToppings);
+    console.log(totalPay);
+
+    setTotal(productData.price + totalPay)
+    }  
+    
+
+    
+   
+    
+    
+   
 
     const getProduct = async () => {
         try {
@@ -129,9 +142,9 @@ const DetailProduct = () => {
                                 
                                   
                                     
-
-                                         <TopingList item={item} id={item.id}   />   
-                                    
+                                        <div onClick={handleClick}>
+                                            <TopingList item={item} id={item.id}   />   
+                                        </div>
                                 </Col>
                            
 
@@ -155,7 +168,7 @@ const DetailProduct = () => {
 
                         </Col>
                     </Row>
-                    <Button className='bg-red w-100 mb-5' onClick={handleClick}>Add Cart</Button>
+                    <Button className='bg-red w-100 mb-5' onClick={handleAddCart}>Add Cart</Button>
 
 
                     </Col>

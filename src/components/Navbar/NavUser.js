@@ -21,7 +21,7 @@ const NavUser = (props) => {
                         <Dropdown align="end" id="dropdown-menu-align-end">
                             <Dropdown.Toggle  as={Nav.Link} className='Dropdown-Toggle' >
                                 <img
-                                    src="./img/avatar-user.png"
+                                    src="../img/avatar-user.png"
                                     alt="avatar-user"
                                 /> 
                             </Dropdown.Toggle>
@@ -30,7 +30,7 @@ const NavUser = (props) => {
                                     <Link to="/user-profile">
                                         <span>
                                             <img
-                                                src="./img/user.svg" 
+                                                src="../img/user.svg" 
                                                 alt="user-profile"
                                                 width={30}
                                                 height={30}
@@ -44,7 +44,7 @@ const NavUser = (props) => {
                                     
                                     <span>
                                         <img
-                                            src="./img/logout.svg" 
+                                            src="../img/logout.svg" 
                                             alt="user-profile"
                                             width={30}
                                             height={30}

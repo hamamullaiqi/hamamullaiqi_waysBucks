@@ -6,7 +6,7 @@ import { data } from '../Pages/DetailProduct'
 
 const TopingList = ({item, id}) => {
 
-    console.log(data);
+    
    
 
     const [checked, setChecked] = useState(false);
@@ -14,8 +14,9 @@ const TopingList = ({item, id}) => {
     const handleChecked= () => {
          setChecked(!checked)
 
-         return data[0].find(topping => topping.id === id).checked = !checked;
-
+          const datacheck = data[0].find(topping => topping.id === id).checked = !checked;
+        
+          
     }
     
   return (
