@@ -1,25 +1,49 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../Navbar/Header';
 import { Container, Row, Col, Button, Form, Image} from "react-bootstrap";
 import SelectToping from './SelectToping';
 import { useParams } from 'react-router-dom';
+import { UserContext } from '../../context/userContext';
 
 import { API } from '../../config/api'
 import TopingList from '../elements/TopingList';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom/cjs/react-dom.development';
+const convertRupiah = require('rupiah-format')
 
 export const data = []
 
 const DetailProduct = () => {
     
     const {id} = useParams()
+    const [state, dispatch] = useContext(UserContext)
+
+    const [user, setUser] = useState({})
+
+    const getIdUser = async () => {
+        try {
+
+            const response = state.user
+
+            setUser(response.id)
+            console.log(response);
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     
     const [productData, setProductData] = useState([])
 
     const handleAddCart = () => { 
+        const idUser = user
+        const idProduct = id
         const topping = data[0].filter(topping => topping.checked === true)
+        
+        console.log(idProduct);
+
+        console.log(idUser);
         
         console.log(topping);
     }
@@ -96,7 +120,7 @@ const DetailProduct = () => {
     }
 
     useEffect(() => {
-        
+        getIdUser()
         getToppings()
         return getProduct()
         
@@ -121,6 +145,12 @@ const DetailProduct = () => {
                     <img 
                         src={productData.image}
                         alt={productData.title}
+                        style={{
+                            maxWidth: "24rem",
+                            height :"32rem",
+                            objectFit :"cover",
+                            borderRadius: "16px"
+                        }}
                         
                         
                         
@@ -131,7 +161,7 @@ const DetailProduct = () => {
 
                     <Col lg={7}>
                     <h1  className="text-red text-bold mb-4">{productData.title}</h1>
-                    <h4 className='mb-5 text-red'>{productData.price}</h4>
+                    <h4 className='mb-5 text-red'>{convertRupiah.convert(productData.price)}</h4>
 
                     <h5 className="text-red text-bold  " >Toping</h5>
                     <Row className='mb-5'>
@@ -164,11 +194,11 @@ const DetailProduct = () => {
                             <h4 className='text-red text-bold'>Total </h4>
                         </Col>
                         <Col lg={6}>
-                            <h4 className='text-red text-bold text-end'>{total}</h4>
+                            <h4 className='text-red text-bold text-end'>{convertRupiah.convert(total)}</h4>
 
                         </Col>
                     </Row>
-                    <Button className='bg-red w-100 mb-5' onClick={handleAddCart}>Add Cart</Button>
+                    <Button className='btn-red bg-red w-100 mb-5' variant="light" onClick={handleAddCart}>Add Cart</Button>
 
 
                     </Col>

@@ -9,6 +9,7 @@ const PrivateRouteUser = ({element: Component, ...rest }) => {
     const [state] = useContext(UserContext)
 
     
+    console.log(state);
     
   return (
         state.isLogin ? <Outlet/> : <Navigate to="/"/>

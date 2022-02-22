@@ -55,7 +55,7 @@ export default function ModalLogin(props) {
             // Send data to useContext
             if(response.data.data.user.status == "admin") {
                 dispatch({
-                    type: "ADMIN_SUCCESS",
+                    type: "ADMIN_LOGIN_SUCCESS",
                     payload: response.data.data.user,
                     });
                     navigate("/income-transaction")

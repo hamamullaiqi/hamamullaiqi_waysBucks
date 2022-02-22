@@ -53,7 +53,7 @@ const AddToping = () => {
      
              
                 
-                navigate("/")
+                navigate("/list-items")
                 
             } catch (error) {
                 console.log(error);
@@ -108,7 +108,7 @@ const AddToping = () => {
                                         </Form.Label>
                                         <Row className='justify-content-center'>
                                             <Col lg={10}>
-                                                <Button onClick={handleSubmit} className="btn bg-red mb-3 w-100  " >Add Toping</Button>
+                                                <Button onClick={handleSubmit} className="btn-red bg-red mb-3 w-100" variant='light' >Add Toping</Button>
                                             </Col>
                                         </Row>
                                     
@@ -122,7 +122,7 @@ const AddToping = () => {
                             <img 
 
                                 src={preview}
-                                alt='product-detail'
+                                alt='topping'
 
                                 style= {{
                                     width:"436px",

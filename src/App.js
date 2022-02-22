@@ -14,6 +14,11 @@ import PrivateRouteAdmin from './components/Route/PrivateRouteAdmin';
 import PrivateRouteUser from './components/Route/PrivateRouteUser';
 import NotFound from './components/Pages/NotFound'
 import { UserContext } from './context/userContext';
+import ListItems from './components/Pages/ListItems';
+
+
+
+
 
 
 
@@ -33,20 +38,20 @@ function App() {
   const [state, dispatch] = useContext(UserContext);
 
   
-
+  console.log(state.isAdminLogin);
   useEffect(() => {
     // Redirect Auth
-    if (state.isLogin == false) {
+    if (!state.isLogin && !state.isAdminLogin) {
       <Navigate to ="/" />
     } else {
       if (state.user.status == "admin") {
-        <Navigate to ="/" />
+        <Navigate to ="/income-transaction" />
 
       } else if (state.user.status == "customer") {
         <Navigate to ="/" />
       }
     }
-  }, []);
+  }, [state]);
   
 
   const checkUser = async () => {
@@ -64,7 +69,8 @@ function App() {
       let payload = response.data.data.user;
       // Get token from local storage
       payload.token = localStorage.token;
-  
+      
+      console.log(response.data.data.user.status);
       // Send data to useContext
           if(response.data.data.user.status == "admin") {
               dispatch({
@@ -115,6 +121,7 @@ function App() {
             <Route exact path='/add-product' element={<AddProduct />} />
             <Route exact path='/add-toping' element={<AddToping />} />
             <Route exact path='/income-transaction' element={<IncomeTransaction />} />
+            <Route exact path='/list-items' element={<ListItems />} />
             <Route exact path='/*' element={<NotFound />} /> 
           </Route>
           

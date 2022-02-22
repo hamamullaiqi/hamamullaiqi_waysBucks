@@ -7,11 +7,11 @@ const PrivateRouteAdmin = ({element: Component, ...rest }) => {
 
     
     const [state] = useContext(UserContext)
-
     
     
+    console.log(state.isAdminLogin);
   return (
-        state.isAdminLogin ? <Outlet/> : <Navigate to="/"/>
+        state.isAdminLogin ? <Outlet/> : <Navigate to="/income-transaction"/>
     );
 };
 

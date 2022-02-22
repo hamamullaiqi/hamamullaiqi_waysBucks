@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const NavAdmin = (props) => {
-    console.log(props);
+    
   return (
             <>
             
@@ -17,7 +17,7 @@ const NavAdmin = (props) => {
                             /> 
                         </Dropdown.Toggle>
                         <Dropdown.Menu className=" text-bold text-dark">
-                            <Dropdown.Item >
+                            {/* <Dropdown.Item >
                                 <Link to="/add-product">
                                     <span>
                                         <img
@@ -30,9 +30,9 @@ const NavAdmin = (props) => {
                                     </span>Add Product
                                 </Link>
                             </Dropdown.Item>
-                            <Dropdown.Divider />
+                            <Dropdown.Divider /> */}
                             <Dropdown.Item >
-                                <Link to="/add-toping">
+                                <Link to="/income-transaction">
                                     <span>
                                         <img
                                             src="./img/add-toping.svg" 
@@ -41,10 +41,24 @@ const NavAdmin = (props) => {
                                             height={30}
                                             className="me-3"
                                         />
-                                    </span>Add Toping
+                                    </span>Income Transaction
                                 </Link>
                             </Dropdown.Item>
-                            <Dropdown.Divider />     
+                            <Dropdown.Divider />   
+                            <Dropdown.Item >
+                                <Link to="/list-items">
+                                    <span>
+                                        <img
+                                            src="./img/add-toping.svg" 
+                                            alt="add-toping"
+                                            width={30}
+                                            height={30}
+                                            className="me-3"
+                                        />
+                                    </span>List Items
+                                </Link>
+                            </Dropdown.Item>
+                            <Dropdown.Divider />    
                             <Dropdown.Item onClick={props.handleLogout}>
                                 
                                 <span>

@@ -20,14 +20,19 @@ const reducer = (state, action) => {
       return {
         
         isLogin: true,
+        isAdminLogin: false,
+
         user: payload,
       };
       //Admin
       
     case "ADMIN_SUCCESS":
+    case "ADMIN_LOGIN_SUCCESS":
+
       // Set item token to localStorage here ...
       localStorage.setItem("token", payload.token)
       return {
+        isLogin: false,
         
         isAdminLogin: true,
         user: payload,

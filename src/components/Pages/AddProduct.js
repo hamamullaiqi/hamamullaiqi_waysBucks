@@ -53,7 +53,7 @@ export default function AddProduct()  {
      
              
                 
-                navigate("/")
+                navigate("/list-items")
                 
             } catch (error) {
                 console.log(error);
@@ -108,7 +108,7 @@ export default function AddProduct()  {
                                     </Form.Label>
                                     <Row className='justify-content-center'>
                                         <Col lg={10}>
-                                            <Button onClick={handleSubmit} className="btn bg-red mb-3 w-100  " >Add Product</Button>
+                                            <Button onClick={handleSubmit} className="btn-red bg-red mb-3 w-100" variant='light' >Add Product</Button>
                                         </Col>
                                     </Row>
                                 

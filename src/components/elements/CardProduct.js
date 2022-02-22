@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from "react-router-dom"
+const convertRupiah = require('rupiah-format')
 
 
 const CardProduct = ({item}) => {
@@ -8,7 +9,7 @@ const CardProduct = ({item}) => {
 
   return (
     <Link to={`/detail-product/${item.id}`} >
-      <Card className='my-3' style={{ width: '16rem' }}  >
+      <Card className='my-3 shadow-sm' style={{ width: '16rem' }}  >
                                                                           
           <Card.Img variant="top" className='image-card' src={item.image} alt={item.name} />
           
@@ -16,7 +17,7 @@ const CardProduct = ({item}) => {
               <Card.Body className="red-opacity">
                   <Card.Title className="text-red text-bold">{item.title}</Card.Title>
                   <Card.Text> 
-                  {item.price}
+                  {convertRupiah.convert(item.price)}
                   </Card.Text>
               </Card.Body>
 
