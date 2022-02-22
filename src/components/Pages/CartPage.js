@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import PopupOrder from '../Modal/PopupOrder';
+import NavUser from '../Navbar/NavUser';
 
 export default function CartPage() {
 
@@ -10,6 +11,9 @@ export default function CartPage() {
     
 
   return (
+    <>
+    <NavUser />
+
       <div className='CartPage mb-5'>
         <Container>
             <Row>
@@ -191,11 +195,11 @@ export default function CartPage() {
             
         </Container>
 
-                            
+                             
         
 
       </div>
-      
+     </> 
   )
 };
 

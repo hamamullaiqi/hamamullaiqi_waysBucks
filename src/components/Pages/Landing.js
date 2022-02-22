@@ -1,7 +1,10 @@
-import  React, { Component } from "react";
+import  React, { useContext } from "react";
 import { Container, Row, Col  } from "react-bootstrap";
 import '../css/Landing.css'
+import NavPublic from "../Navbar/NavPublic";
+import NavUser from "../Navbar/NavUser";
 import ProductList from "./ProductList";
+import { UserContext } from "../../context/userContext";
 
  
 
@@ -10,8 +13,12 @@ import ProductList from "./ProductList";
 
 export default function Landing() {
         
+    const [state, dispatch] = useContext(UserContext)
+
         
-        return(
+    return(
+            <>
+            {state.isLogin ? <NavUser/> : <NavPublic /> }
             <div className="Landing-Page mb-5 ">
                 <Container className=" mb-5">
                     <Row className="">
@@ -47,6 +54,8 @@ export default function Landing() {
 
                 <ProductList/>
             </div>
+
+            </>
         )
     
 }

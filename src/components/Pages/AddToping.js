@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form,Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import NavAdmin from '../Navbar/NavAdmin';
 
 import { API } from '../../config/api'
 
@@ -61,6 +62,8 @@ const AddToping = () => {
 
         }
   return (
+      <>
+        <NavAdmin />
 
             <div className='AddToping mb-5'>
                 <Container>
@@ -137,7 +140,7 @@ const AddToping = () => {
                     </Row>
                 </Container>
             </div>
-
+        </>
   )
 };
 

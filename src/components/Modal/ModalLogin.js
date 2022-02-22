@@ -13,7 +13,8 @@ import { API } from '../../config/api'
 
 export default function ModalLogin(props) {
 
-    const navigate = useNavigate()
+
+    
     
 
     const [state, dispatch] = useContext(UserContext)
@@ -53,27 +54,27 @@ export default function ModalLogin(props) {
 
            if (response?.status == 200) {
             // Send data to useContext
-            if(response.data.data.user.status == "admin") {
-                dispatch({
-                    type: "ADMIN_LOGIN_SUCCESS",
-                    payload: response.data.data.user,
-                    });
-                    navigate("/income-transaction")
-            } else if (response.data.data.user.status == "customer") {
-                dispatch({
-                    type: "LOGIN_SUCCESS",
-                    payload: response.data.data.user,
-                    });
-                    navigate("/")
+            setTimeout(()=> props.onHide(false), 1300);
 
+                if(response.data.data.user.status === "admin") {
+                    dispatch({
+                        type: "ADMIN_LOGIN_SUCCESS",
+                        payload: response.data.data.user,
+                        });
+                        
+                    } else if (response.data.data.user.status === "customer") {
+                        dispatch({
+                            type: "LOGIN_SUCCESS",
+                            payload: response.data.data.user,
+                            });
             }
                 
-            } else {
-                navigate("/")
-            }
+            } 
+
+            
 
             const alert = (
-                <Alert variant="danger">
+                <Alert variant="success">
                     {response.data.status}
                 </Alert>
             )
@@ -101,7 +102,7 @@ export default function ModalLogin(props) {
 
     return(
         <>
-        
+            
             <Modal show={props.show} onHide={props.onHide}  dialogClassName="modal-md" centered   >
             
                 <Modal.Body className="p-5">

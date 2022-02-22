@@ -1,17 +1,45 @@
-import React from 'react';
+import React,{ useContext, } from 'react';
+import { UserContext } from '../../context/userContext';
+import { Navbar,Container, Nav, Stack, Dropdown} from "react-bootstrap"
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Nav, Stack, Dropdown,NavDropdown, DropdownButton } from "react-bootstrap"
-import { Link } from 'react-router-dom';
+const NavUser = () => {
 
-const NavUser = (props) => {
+    const navigate  = useNavigate
+
+    const [state, dispatch] = useContext(UserContext)
+
+
+    const handleLogout = () => {
+        dispatch({
+            type: "LOGOUT"
+        })
+        
+    }
   return (
-    
-                <>
+
+            <Navbar expand="lg"className="py-4 mb-5" >
+                <Container fluid className="justify-content-between ms-5 me-5">
+                    <Navbar.Brand >
+                        <Link to="/landing">
+                        
+                        
+                        <img 
+                            src="../img/logo.svg"
+                            width="80"
+                            height="80"
+                            alt="logo"
+                        />
+                        </Link>
+                    </Navbar.Brand>
+                    
+                    <Nav >
+
                     <Stack direction="horizontal" gap={3} >
                         <Link to="/card-page">
                             <div>
                                 <img 
-                                    src="./img/cart.svg"
+                                    src="../img/cart.svg"
                                     alt="cart"
                                 />
                             </div>
@@ -40,7 +68,7 @@ const NavUser = (props) => {
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Divider />    
-                                <Dropdown.Item onClick={props.handleLogout}>
+                                <Dropdown.Item onClick={handleLogout}>
                                     
                                     <span>
                                         <img
@@ -58,7 +86,18 @@ const NavUser = (props) => {
                                 
                             
                     </Stack>
-                </>
+
+
+                        
+                            
+                    </Nav>
+                </Container >
+            </Navbar>
+
+    
+                
+                    
+                
     
     );
 };

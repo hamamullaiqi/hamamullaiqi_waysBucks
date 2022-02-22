@@ -12,8 +12,7 @@ import { UserContext } from "../../context/userContext";
 import { API } from '../../config/api'
 
 export default function ProductList() {
-    const [modalLogin, setModalLogin] = useState(false)
-    const [modalRegister, setModalRegister] = useState(false);
+    
     
     const [state, dispatch] = useContext(UserContext)
 
@@ -34,17 +33,13 @@ export default function ProductList() {
 
     useEffect(() => {
         getProducts()
+        return () => {
+            setProducts({}); // This worked for me
+          };
     }, [])
 
 
-    const handleSwitchRegister = () => {
-        setModalRegister(true)
-        return(setModalLogin(false))
-     }
-     const handleSwitchLogin = () => {
-        setModalLogin(true)
-        return(setModalRegister(false))
-     }
+    
 
      
     
@@ -62,19 +57,19 @@ export default function ProductList() {
                                 // state.isLogin ? (
                                     products.length !== 0 ? (
                                 <>
-                                    {products.map((item, index) => (
+                                    {products.map((item) => (
                                         
                                         <Col lg={3}>
-                                            <div className="d-flex justify-content-start">
+                                            <div className="d-flex justify-content-start" >
                                                 
-                                                <CardProduct item={item} key={index} />
+                                                <CardProduct item={item} key={item.id}  />
                                             </div>
                                         </Col>
                                         
                                     ))}
                                 </>
                                 ) : (
-                                <div  onClick={()=> setModalLogin(true)}> 
+                                <div > 
                                     PRODUCT NOT FOUND
                                 </div>
                             )}    
@@ -89,8 +84,7 @@ export default function ProductList() {
 
                 </Container>
 
-                { modalLogin && <ModalLogin show={modalLogin} onHide={() => setModalLogin(false)} handleSwitchRegister={handleSwitchRegister}  />}
-                { modalRegister && <ModalRegister show={modalRegister} onHide={() => setModalRegister(false)} handleSwitchLogin={handleSwitchLogin} />}
+                
                     
             </div>
             </>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Container, Table } from 'react-bootstrap';
 import ModalTransaction from '../Modal/ModalTransaction';
+import NavAdmin from '../Navbar/NavAdmin';
 
 const IncomeTransaction = () => {
 
@@ -9,6 +10,9 @@ const IncomeTransaction = () => {
 
 
   return (
+
+    <>
+    <NavAdmin />
       <div className='IncomeTransaction mb-5'>
 
         <Container>
@@ -106,7 +110,7 @@ const IncomeTransaction = () => {
 
         {state && <ModalTransaction show={state} onHide={()=>setState(false)} />}
       </div>
-
+    </>
   );
 };
 

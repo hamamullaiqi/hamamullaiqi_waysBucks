@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import Header from './components/Navbar/Header';
+// import Header from './components/Navbar/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './components/css/Style.css'
 import Landing from './components/Pages/Landing';
@@ -33,8 +33,7 @@ if (localStorage.token) {
 
 function App() {
 
-  
-
+  const navigate = useNavigate()
   const [state, dispatch] = useContext(UserContext);
 
   
@@ -42,13 +41,14 @@ function App() {
   useEffect(() => {
     // Redirect Auth
     if (!state.isLogin && !state.isAdminLogin) {
-      <Navigate to ="/" />
+      navigate("/landing")
     } else {
-      if (state.user.status == "admin") {
-        <Navigate to ="/income-transaction" />
+      if (state.user.status === "admin") {
+        navigate("/income-transaction")
 
-      } else if (state.user.status == "customer") {
-        <Navigate to ="/" />
+      } else if (state.user.status === "customer") {
+        navigate("/landing")
+
       }
     }
   }, [state]);
@@ -72,14 +72,17 @@ function App() {
       
       console.log(response.data.data.user.status);
       // Send data to useContext
-          if(response.data.data.user.status == "admin") {
+
+      
+
+          if(response.data.data.user.status === "admin") {
               dispatch({
                   type: "ADMIN_SUCCESS",
                   payload,
                   });
                 
           }  
-          if(response.data.data.user.status == "customer") {
+          if(response.data.data.user.status === "customer") {
               dispatch({
                   type: "USER_SUCCESS",
                   payload,
@@ -96,39 +99,36 @@ function App() {
   }, []);
 
   return (
-      <Router>
-        <div>
-          <Header/>
-
-        </div>
+        
         <Routes>
             {/* Public Route */}
-          <Route exact path='/' element={<Landing />} />
+          
           
           
 
           {/* User Route */}
-          <Route exact path='/' element={<PrivateRouteUser />} >
+          {/* <Route exact path='/' element={<PrivateRouteUser />} > */}
+            <Route exact path='/landing' element={<Landing />} />
             <Route exact path='/user-profile' element={<UserProfile />} />
             <Route exact path='/card-page' element={<CartPage />} />
             <Route exact path='/detail-product/:id' element={<DetailProduct />} />
-            <Route exact path='/*' element={<NotFound />} /> 
-          </Route>
+            
+          {/* </Route> */}
 
 
           {/* Admin Route */}
-          <Route exact path='/' element={<PrivateRouteAdmin />} >
+          {/* <Route exact path='/' element={<PrivateRouteAdmin />} > */}
             <Route exact path='/add-product' element={<AddProduct />} />
             <Route exact path='/add-toping' element={<AddToping />} />
             <Route exact path='/income-transaction' element={<IncomeTransaction />} />
             <Route exact path='/list-items' element={<ListItems />} />
-            <Route exact path='/*' element={<NotFound />} /> 
-          </Route>
+            <Route exact path='' element={<NotFound />} /> 
+          {/* </Route> */}
           
           <Route exact path='*' element={<NotFound />} /> 
 
         </Routes>
-      </Router>
+      
 
 
       

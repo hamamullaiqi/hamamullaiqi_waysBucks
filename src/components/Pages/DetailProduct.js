@@ -1,14 +1,15 @@
 
 import React, { useState, useEffect, useContext } from 'react';
-import Header from '../Navbar/Header';
-import { Container, Row, Col, Button, Form, Image} from "react-bootstrap";
-import SelectToping from './SelectToping';
+
+import { Container, Row, Col, Button} from "react-bootstrap";
+
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 import { API } from '../../config/api'
 import TopingList from '../elements/TopingList';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom/cjs/react-dom.development';
+import NavUser from '../Navbar/NavUser';
 const convertRupiah = require('rupiah-format')
 
 export const data = []
@@ -32,6 +33,10 @@ const DetailProduct = () => {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        getIdUser()
+    }, [])
 
     
     const [productData, setProductData] = useState([])
@@ -59,7 +64,7 @@ const DetailProduct = () => {
     console.log(topping);
     console.log(topping.length);
 
-    let priceToppings = topping.map(total => total.price)
+        let priceToppings = topping.map(total => total.price)
 
     let totalPay = topping.reduce((priceTopping, element) => {
         return priceTopping + element.price
@@ -119,10 +124,18 @@ const DetailProduct = () => {
         }
     }
 
+
     useEffect(() => {
-        getIdUser()
+        
         getToppings()
-        return getProduct()
+       
+        
+    },[])
+
+    useEffect(() => {
+        
+        
+        getProduct()
         
     },[])
 
@@ -132,10 +145,13 @@ const DetailProduct = () => {
     
 
   return (
-       
-      <div className='DetailProduct mb-5 '>
+      <>
 
-          <Container>
+        <NavUser />
+       
+      
+
+          <Container className='DetailProduct mb-5 '>
             <Row className=''>
                
                
@@ -210,7 +226,8 @@ const DetailProduct = () => {
           </Container>
           
 
-      </div>
+     
+      </>
    
 
 
