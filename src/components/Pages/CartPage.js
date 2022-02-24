@@ -1,14 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import PopupOrder from '../Modal/PopupOrder';
 import NavUser from '../Navbar/NavUser';
+import { API } from '../../config/api';
+import { UserContext } from '../../context/userContext';
+import OrderItem from '../elements/OrderItem';
+import { useParams } from 'react-router-dom';
+import ModalDelete from '../Modal/ModalDelete';
+const convertRupiah = require('rupiah-format')
+
+
+
 
 export default function CartPage() {
 
-    const [modalPopupOrder, setModalPopupOrder] = useState(false)
+    
 
+    const [modalPopupOrder, setModalPopupOrder] = useState(false)
+    const [state, dispatch] = useContext(UserContext)
+    const [modalDelete, setModalDelete] = useState(false)
+    const [idDelete, setIdDelete] = useState(null);
+    const [deleteOrder, setDeleteOrder] = useState(null);
+    const handleClose = () => setModalDelete(false);
+    const handleShow = () => setModalDelete(true);
+
+    // console.log(idDelete);
+
+
+    const [orders, setOrders] = useState([])
+    // console.log(orders);
+    
+    const { id } = useParams()
+
+    // console.log(id);
+    
+    
+
+    const getOrders = async () => {
+        try {
+
+            const response = await API.get(`/order-list/${id}`)
+            setOrders(response.data.data.order) 
+           
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    useEffect(() => {
+        getOrders()
+    }, [])
+
+
+    const handleDelete = (id) => {
+        setIdDelete(id)
+        handleShow()
+    }
+    const deleteById = async (id) => {
+        try {
+            await API.delete(`/order-list/${id}`)
+            getOrders()
+            
+            
+        } catch (error) {
+            console.log();
+        }
+    }
+    useEffect(() => {
+        if (deleteOrder) {
+
+          handleClose();
+
+          deleteById(idDelete);
+          setDeleteOrder(null);
+        }
+      }, [deleteOrder]);
 
     
+      const totalPay = orders.reduce((subTotal, element) => {
+            return subTotal + element.sub_total
+        }, 0)
+
+    const idOrder = orders.map((idOrder) => idOrder.id)
+
+    console.log(idOrder);
 
   return (
     <>
@@ -26,61 +102,70 @@ export default function CartPage() {
                         <Col lg={7}>
                             <hr className='horizline'/>
                             <div className='cart-list'>
-                            <Row className='my-3 align-items-center'>
-                                <Col  lg={2}>
-                                    <img 
-                                        src='./img/cart-list.png'
-                                        alt='cart-list'
-                                    />
-                                
-                                </Col>
-                                <Col lg={7}>
-                                    
-                                        <h5 className='text-bold text-red' >Ice Coffe Palm Sugar</h5>
-                                        <p className='d-inline text-red  '>Toping</p> 
-                                        <span className='d-inline text-red  '>: Bill Berry Boba, Bubble Tea Gelatin</span>
-                                </Col>
-                                <Col lg={3} className=' text-end'>
-                                
-                                    <h6 className=' text-red'> Rp.33.000</h6>
-                                    <img 
-                                        src='./img/delete.svg'
-                                        width={16}
-                                        height={20}
-                                        alt='delete-img'
-                                    />  
-                                </Col>
-                            </Row>
+                                {orders.length !== 0 ? (
 
-                            <Row className='my-3 align-items-center' >
-                                <Col  lg={2}>
-                                    <img 
-                                        src='./img/cart-list.png'
-                                        alt='cart-list'
-                                    />
-                                
-                                </Col  >
-                                <Col lg={7}>
-                                    
-                                        <h5 className='text-bold text-red' >Ice Coffe Palm Sugar</h5>
-                                        <p className='d-inline text-red  '>Toping</p> 
-                                        <span className='d-inline text-red  '>: : Bill Berry Boba, Manggo</span>
-                                </Col>
-                                <Col lg={3} className=' text-end'>
-                                
-                                    <h6 className=' text-red'> Rp.33.000</h6>
-                                    <img 
-                                        src='./img/delete.svg'
-                                        width={16}
-                                        height={20}
-                                        alt='delete-img'
-                                    />  
-                                </Col>
-                            </Row>
+                                    <>
+                                        {orders.map((item) => (
+                                            <div key={item.id} >
+
+                                            <Row className=' align-items-center' >
+                                            <Col  lg={2}>
+                                                <img 
+                                                    src={item.product.image}
+                                                    alt={item.product.title}
+                                                    style={{
+                                                        width: "6rem",
+                                                        height: "6rem",
+                                                        objectFit: "cover",
+                                                        borderRadius: "8px"
+                                                    }}
+                                                />
+                            
+                                            </Col  >
+                                            <Col lg={7}>
+                                                
+                                                    <h5 className='text-bold text-red' >{item.product.title}</h5>
+                                                    <p className='d-inline text-red  '>Toping :</p> 
+                                                    {item.toppings.map(topping => <span className='d-inline text-red' key={topping.id}> {topping.title},</span> )}
+                                                    
+                                            </Col>
+                                            <Col lg={3} className=' text-end'>
+                            
+                                                <h6 className=' text-red'> {convertRupiah.convert(item.sub_total)}</h6>
+                                                <img 
+                                                    src='../img/delete.svg'
+                                                    width={16}
+                                                    height={20}
+                                                    alt='delete-img'
+                                                    onClick={() => handleDelete(item.id)}
+                                                />  
+                                            </Col>
+                                                <hr className='horizline mt-3'/>
+
+                                        </Row>
+                                        </div>
+
+                                             
+                                        )
+                                            
+                                           
+                                       
+                                                
+                                            
+                                        )}
+                                    </>
+
+                                ) : (
+                                    <div>
+                                            <p>Tidak Ada Data</p>
+                                    </div>
+                                )}
+                            
+
+                            
 
                         </div>
 
-                        <hr className='horizline'/>
                         {/*  End table card-list */}
 
                         <Row className='text-red align-items-center '>
@@ -90,17 +175,17 @@ export default function CartPage() {
 
                                     <div className='d-flex justify-content-between'>
                                         <p>Sub Total</p>
-                                        <p>Rp.69.000</p>
+                                        <p>{convertRupiah.convert(totalPay)}</p>
                                     </div>
                                     <div className='d-flex justify-content-between'>
                                         <p>Qty</p>
-                                        <p>2</p>
+                                        <p>{orders.length}</p>
                                     </div>
                                 <hr className='horizline'/>
 
                                     <div className='d-flex justify-content-between text-bold'>
                                         <p>Total</p>
-                                        <p>Rp.69.000</p>
+                                        <p>{convertRupiah.convert(totalPay)}</p>
                                     </div>
                             </Col>
 
@@ -115,7 +200,7 @@ export default function CartPage() {
                                                 type="file" 
                                             />
                                             <img 
-                                                src='./img/attache.svg'
+                                                src='../img/attache.svg'
                                                 alt='attache-svg'
                                                 width={43.75}
                                                 height={50}
@@ -173,7 +258,7 @@ export default function CartPage() {
                                     style={{ height: '150px' }}
                                 />
 
-                                <Button onClick={() => {setModalPopupOrder(true)}} className="btn bg-red mb-3 w-100" >Pay</Button>
+                                <Button onClick={() => {setModalPopupOrder(!modalPopupOrder)}} className="btn-red bg-red mb-3 w-100" variant="light" >Pay</Button>
                             </Form.Group>
 
                             
@@ -184,12 +269,8 @@ export default function CartPage() {
                 
             </Row>
 
-            <PopupOrder 
-                show={modalPopupOrder}
-                onHide={() => setModalPopupOrder(false)}
-                
-                
-            />
+            <PopupOrder show={modalPopupOrder} onHide={() => setModalPopupOrder(false)} />
+            <ModalDelete show={modalDelete} setDeleteOrder={setDeleteOrder} handleClose={handleClose}/>
 
             
             

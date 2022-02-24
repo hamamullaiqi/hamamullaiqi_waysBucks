@@ -24,7 +24,7 @@ export default function ProductList() {
             const response = await API.get("/products")
 
             setProducts(response.data.data.products)
-            console.log(response.data.data);
+            // console.log(response.data.data);
             
         } catch (error) {
             console.log(error)
@@ -59,10 +59,10 @@ export default function ProductList() {
                                 <>
                                     {products.map((item) => (
                                         
-                                        <Col lg={3}>
+                                        <Col lg={3}  key={item.id}>
                                             <div className="d-flex justify-content-start" >
                                                 
-                                                <CardProduct item={item} key={item.id}  />
+                                                <CardProduct item={item}  />
                                             </div>
                                         </Col>
                                         

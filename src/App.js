@@ -37,7 +37,7 @@ function App() {
   const [state, dispatch] = useContext(UserContext);
 
   
-  console.log(state.isAdminLogin);
+  
   useEffect(() => {
     // Redirect Auth
     if (!state.isLogin && !state.isAdminLogin) {
@@ -64,13 +64,13 @@ function App() {
           type: "AUTH_ERROR",
         });
       }
-  
+      // console.log(response);
       // Get user data
       let payload = response.data.data.user;
       // Get token from local storage
       payload.token = localStorage.token;
       
-      console.log(response.data.data.user.status);
+      
       // Send data to useContext
 
       
@@ -110,7 +110,7 @@ function App() {
           {/* <Route exact path='/' element={<PrivateRouteUser />} > */}
             <Route exact path='/landing' element={<Landing />} />
             <Route exact path='/user-profile' element={<UserProfile />} />
-            <Route exact path='/card-page' element={<CartPage />} />
+            <Route exact path='/cart-page/:id' element={<CartPage />} />
             <Route exact path='/detail-product/:id' element={<DetailProduct />} />
             
           {/* </Route> */}

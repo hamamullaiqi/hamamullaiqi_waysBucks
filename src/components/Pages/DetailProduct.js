@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { Container, Row, Col, Button} from "react-bootstrap";
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 
 import { API } from '../../config/api'
@@ -14,11 +14,17 @@ const convertRupiah = require('rupiah-format')
 
 export const data = []
 
+
+
+
 const DetailProduct = () => {
+
+    const navigate = useNavigate()
+
     
     const {id} = useParams()
     const [state, dispatch] = useContext(UserContext)
-
+    const [total, setTotal] = useState([])
     const [user, setUser] = useState({})
 
     const getIdUser = async () => {
@@ -27,7 +33,7 @@ const DetailProduct = () => {
             const response = state.user
 
             setUser(response.id)
-            console.log(response);
+            // console.log(response);
             
         } catch (error) {
             console.log(error)
@@ -40,29 +46,59 @@ const DetailProduct = () => {
 
     
     const [productData, setProductData] = useState([])
+    const [toppingChecked, setToppingChecked] = useState([])
+    // console.log(toppingChecked);
 
-    const handleAddCart = () => { 
-        const idUser = user
-        const idProduct = id
-        const topping = data[0].filter(topping => topping.checked === true)
-        
-        console.log(idProduct);
+    
+    
+    const handleAddCart = async (e) => { 
+        try {
+            e.preventDefault()
+     
+                 const config = {
+                     headers : {
+                        "Content-type": "application/json",
+                     }
+                }
 
-        console.log(idUser);
+                const toppingsId = toppingChecked.map(item=> {
+                    return (item.id)
+                })
+                // console.log(toppingsId);
+
+                const data = {
+                    id_user : user,
+                    id_product : id,
+                    id_toppings : toppingsId,
+                    id_topping : 1,
+                    sub_total : total
+                }
+
+                const body = JSON.stringify(data);
+                
+                // console.log(body);
+                
+                
+                const response = await API.post("/order-list", body, config  )
+            
+                navigate(`/cart-page/${user}`)
+        } catch (error) {
+            console.log(error);
+        }
         
-        console.log(topping);
     }
 
-    const [total, setTotal] = useState([])
+    
 
-    console.log(total);
+    
 
     
 
    const handleClick = () => {
     const topping = data[0].filter(topping => topping.checked === true)
-    console.log(topping);
-    console.log(topping.length);
+    setToppingChecked(topping)
+    // console.log(topping);
+    
 
         let priceToppings = topping.map(total => total.price)
 
@@ -71,8 +107,8 @@ const DetailProduct = () => {
     }, 0)
     
     
-    console.log(priceToppings);
-    console.log(totalPay);
+    // console.log(priceToppings);
+    // console.log(totalPay);
 
     setTotal(productData.price + totalPay)
     }  
@@ -90,7 +126,7 @@ const DetailProduct = () => {
             const response = await API.get(`/product/${id}`)
 
             setProductData(response.data.data.product)
-            console.log(response.data.data.product)
+            // console.log(response.data.data.product)
             setTotal(response.data.data.product.price)
             
             
@@ -116,7 +152,7 @@ const DetailProduct = () => {
             const response = await API.get("/toppings")
 
             setToppings(response.data.data.topping)
-            console.log(response.data)
+            // console.log(response.data)
             data.push(response.data.data.topping)
             
         } catch (error) {
@@ -125,17 +161,12 @@ const DetailProduct = () => {
     }
 
 
-    useEffect(() => {
-        
-        getToppings()
-       
-        
-    },[])
+    
 
     useEffect(() => {
         
-        
-        getProduct()
+        getToppings()
+        return getProduct()
         
     },[])
 

@@ -18,7 +18,7 @@ export default function ModalLogin(props) {
     
 
     const [state, dispatch] = useContext(UserContext)
-    console.log(state);
+    // console.log(state);
 
     const [message, setMessage] = useState(null)
     
@@ -68,17 +68,19 @@ export default function ModalLogin(props) {
                             payload: response.data.data.user,
                             });
             }
-                
-            } 
-
-            
-
             const alert = (
                 <Alert variant="success">
                     {response.data.status}
                 </Alert>
             )
             setMessage(alert)
+           
+                
+            } 
+
+            
+
+          
             // if (response.data.data.user.status == "admin") {
             //     navigate("/income-transaction");
             //   } else {

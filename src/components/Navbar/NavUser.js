@@ -1,13 +1,41 @@
-import React,{ useContext, } from 'react';
+import React,{ useContext, useEffect, useState, } from 'react';
 import { UserContext } from '../../context/userContext';
 import { Navbar,Container, Nav, Stack, Dropdown} from "react-bootstrap"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { API } from '../../config/api'
+
 
 const NavUser = () => {
 
-    const navigate  = useNavigate
-
+    
+    const navigate = useNavigate()
     const [state, dispatch] = useContext(UserContext)
+
+    const [orders, setOrders] = useState([])
+    console.log(orders);
+
+    
+    const { id } = state.user
+
+
+    const getOrders = async () => {
+        try {
+
+            const response = await API.get(`/order-list/${id}`)
+
+            setOrders(response.data.data.order)
+            
+           
+           
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    useEffect(() => {
+        getOrders()
+    }, [])
 
 
     const handleLogout = () => {
@@ -24,26 +52,37 @@ const NavUser = () => {
                         <Link to="/landing">
                         
                         
+                        
                         <img 
                             src="../img/logo.svg"
                             width="80"
                             height="80"
                             alt="logo"
+                            
+
                         />
+                        
                         </Link>
                     </Navbar.Brand>
                     
                     <Nav >
 
                     <Stack direction="horizontal" gap={3} >
-                        <Link to="/card-page">
-                            <div>
+                        
+                            <div className='position-relative' onClick={() => navigate(`/cart-page/${id}`)}>
+                            {orders.length !== 0  ? (
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {orders.length} 
+                                    
+                                </span>
+                            ) : ("") }
+                            
                                 <img 
                                     src="../img/cart.svg"
                                     alt="cart"
                                 />
                             </div>
-                        </Link>
+                        
                         
                         
                         <Dropdown align="end" id="dropdown-menu-align-end">
