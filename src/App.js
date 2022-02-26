@@ -39,7 +39,11 @@ function App() {
   
   
   useEffect(() => {
-    // Redirect Auth
+
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    
     if (!state.isLogin && !state.isAdminLogin) {
         return navigate("/landing")
     } else {
@@ -58,7 +62,7 @@ function App() {
     try {
       const response = await API.get("/check-auth");
   
-      // If the token incorrect
+      
       if (response.status === 404) {
         return dispatch({
           type: "AUTH_ERROR",

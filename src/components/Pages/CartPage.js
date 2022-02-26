@@ -81,11 +81,20 @@ export default function CartPage() {
 
                 // console.log(form);
                 const response = await API.post(`/transaction/${id}`, formData, config)
+
+
                 const deleteCartList = await API.delete(`/cart/${idOrderCart}`)
-                getOrders()
+
+
+                setModalPopupOrder(true)
+
+                
+
 
                 // console.log(response);
-                return  navigate("/user-profile")
+                setTimeout(()=> navigate("/user-profile"), 4000)
+
+                 
 
             
         } catch (error) {
@@ -143,6 +152,7 @@ export default function CartPage() {
 
           deleteById(idDelete);
           setDeleteOrder(null);
+          
         }
       }, [deleteOrder]);
 
@@ -160,7 +170,7 @@ export default function CartPage() {
 
   return (
     <>
-    <NavUser  />
+    <NavUser />
 
       <div className='CartPage mb-5'>
         <Container>
@@ -210,6 +220,7 @@ export default function CartPage() {
                                                     height={20}
                                                     alt='delete-img'
                                                     onClick={() => handleDelete(item.id)}
+                                                    
                                                 />  
                                             </Col>
                                                 <hr className='horizline mt-3'/>
@@ -362,12 +373,13 @@ export default function CartPage() {
                 
             </Row>
 
-            <PopupOrder show={modalPopupOrder} onHide={() => setModalPopupOrder(false)} />
-            <ModalDelete show={modalDelete} setDeleteOrder={setDeleteOrder} handleClose={handleClose}/>
+           
 
             
             
         </Container>
+        <PopupOrder show={modalPopupOrder} onHide={() => setModalPopupOrder(false)} />
+            <ModalDelete show={modalDelete} setDeleteOrder={setDeleteOrder} handleClose={handleClose}/>
 
                              
         

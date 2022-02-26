@@ -21,7 +21,6 @@ const reducer = (state, action) => {
         
         isLogin: true,
         isAdminLogin: false,
-
         user: payload,
       };
       //Admin
@@ -33,7 +32,6 @@ const reducer = (state, action) => {
       localStorage.setItem("token", payload.token)
       return {
         isLogin: false,
-        
         isAdminLogin: true,
         user: payload,
       };

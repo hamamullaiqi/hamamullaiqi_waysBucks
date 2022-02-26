@@ -6,7 +6,7 @@ export default function PopupOrder(props) {
   
 
 
-    setTimeout(()=> props.onHide(false), 2000);
+    setTimeout(()=> props.onHide(false), 3000)
 
     
 

@@ -31,10 +31,11 @@ const NavUser = () => {
         }
     }
 
+    
 
     useEffect(() => {
-        getOrders()
-    }, [orders.lenght])
+        return  getOrders()
+    }, [state])
 
 
     const handleLogout = () => {
