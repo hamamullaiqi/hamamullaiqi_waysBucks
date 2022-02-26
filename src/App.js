@@ -113,7 +113,7 @@ function App() {
           {/* User Route */}
           {/* <Route exact path='/' element={<PrivateRouteUser />} > */}
             <Route exact path='/landing' element={<Landing />} />
-            <Route exact path='/user-profile' element={<UserProfile />} />
+            <Route exact path='/user-profile/:id' element={<UserProfile />} />
             <Route exact path='/cart-page/:id' element={<CartPage />} />
             <Route exact path='/detail-product/:id' element={<DetailProduct />} />
             

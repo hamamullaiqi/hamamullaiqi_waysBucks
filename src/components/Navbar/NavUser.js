@@ -93,8 +93,8 @@ const NavUser = () => {
                                 /> 
                             </Dropdown.Toggle>
                             <Dropdown.Menu className=" text-bold text-dark">
-                                <Dropdown.Item >
-                                    <Link to="/user-profile">
+                                <Dropdown.Item onClick={() => navigate(`/user-profile/${id}`)} >
+                                   
                                         <span>
                                             <img
                                                 src="../img/user.svg" 
@@ -104,7 +104,7 @@ const NavUser = () => {
                                                 className="me-3"
                                             />
                                         </span>Profile
-                                    </Link>
+                                   
                                 </Dropdown.Item>
                                 <Dropdown.Divider />    
                                 <Dropdown.Item onClick={handleLogout}>

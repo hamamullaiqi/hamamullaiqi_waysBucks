@@ -5,7 +5,7 @@ import NavUser from '../Navbar/NavUser';
 import { API } from '../../config/api';
 import { UserContext } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
-import OrderItem from '../elements/OrderItem';
+
 import { useParams } from 'react-router-dom';
 import ModalDelete from '../Modal/ModalDelete';
 const convertRupiah = require('rupiah-format')
@@ -92,7 +92,7 @@ export default function CartPage() {
 
 
                 // console.log(response);
-                setTimeout(()=> navigate("/user-profile"), 4000)
+                setTimeout(()=> navigate(`/user-profile/${id}`), 4000)
 
                  
 
