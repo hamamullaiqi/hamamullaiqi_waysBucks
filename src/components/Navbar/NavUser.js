@@ -12,7 +12,7 @@ const NavUser = () => {
     const [state, dispatch] = useContext(UserContext)
 
     const [orders, setOrders] = useState([])
-    console.log(orders);
+    // console.log(orders);
 
     
     const { id } = state.user
@@ -21,11 +21,10 @@ const NavUser = () => {
     const getOrders = async () => {
         try {
 
-            const response = await API.get(`/order-list/${id}`)
+            const response = await API.get(`/cart/${id}`)
 
-            setOrders(response.data.data.order)
-            
-           
+            setOrders(response.data.data.cart)
+
            
         } catch (error) {
             console.log(error)
@@ -35,7 +34,7 @@ const NavUser = () => {
 
     useEffect(() => {
         getOrders()
-    }, [])
+    }, [orders.lenght])
 
 
     const handleLogout = () => {

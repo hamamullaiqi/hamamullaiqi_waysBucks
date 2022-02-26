@@ -22,7 +22,7 @@ const DetailProduct = () => {
     const navigate = useNavigate()
 
     
-    const {id} = useParams()
+    const  { id } = useParams()
     const [state, dispatch] = useContext(UserContext)
     const [total, setTotal] = useState([])
     const [user, setUser] = useState({})
@@ -33,7 +33,7 @@ const DetailProduct = () => {
             const response = state.user
 
             setUser(response.id)
-            // console.log(response);
+            console.log(response);
             
         } catch (error) {
             console.log(error)
@@ -70,7 +70,6 @@ const DetailProduct = () => {
                     id_user : user,
                     id_product : id,
                     id_toppings : toppingsId,
-                    id_topping : 1,
                     sub_total : total
                 }
 
@@ -80,6 +79,8 @@ const DetailProduct = () => {
                 
                 
                 const response = await API.post("/order-list", body, config  )
+               
+
             
                 navigate(`/cart-page/${user}`)
         } catch (error) {

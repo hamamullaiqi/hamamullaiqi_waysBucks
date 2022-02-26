@@ -4,6 +4,7 @@ import PopupOrder from '../Modal/PopupOrder';
 import NavUser from '../Navbar/NavUser';
 import { API } from '../../config/api';
 import { UserContext } from '../../context/userContext';
+import { useNavigate } from 'react-router-dom';
 import OrderItem from '../elements/OrderItem';
 import { useParams } from 'react-router-dom';
 import ModalDelete from '../Modal/ModalDelete';
@@ -14,23 +15,87 @@ const convertRupiah = require('rupiah-format')
 
 export default function CartPage() {
 
+    const navigate = useNavigate()
     
 
     const [modalPopupOrder, setModalPopupOrder] = useState(false)
     const [state, dispatch] = useContext(UserContext)
+    const [orders, setOrders] = useState([])
     const [modalDelete, setModalDelete] = useState(false)
     const [idDelete, setIdDelete] = useState(null);
     const [deleteOrder, setDeleteOrder] = useState(null);
     const handleClose = () => setModalDelete(false);
     const handleShow = () => setModalDelete(true);
 
-    // console.log(idDelete);
+    const { id } = useParams()
+
+    console.log(orders);
+
+    
+
+    const [form, setForm] = useState({
+        
+        status: "",
+        attch_transaction: "",
+        fullname: "",
+        email: "",
+        phone: "",
+        poscode: "",
+        address: "", 
+
+    })
 
 
-    const [orders, setOrders] = useState([])
+    const handleChange =(e) => {
+        setForm({
+            ...form,
+            [e.target.name]: 
+            e.target.type === "file" ? e.target.files : e.target.value
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault()
+
+            const config = {
+                headers : {
+                   "Content-type": "multipart/form-data",
+                }
+           }
+
+           const formData = new FormData();
+                formData.set("id_user", id  );
+                formData.set("id_orders", JSON.stringify(idOrder));
+                // formData.set("id_product", JSON.stringify(product));
+                // formData.set("id_toppings", JSON.stringify(topping));
+                formData.set("total_pay",  totalPay)
+                formData.set("attch_transaction", form.image[0], form.image[0].name);
+                formData.set("fullname", form.fullname);
+                formData.set("email", form.email);
+                formData.set("phone", form.phone);
+                formData.set("poscode", form.poscode);
+                formData.set("address", form.address);
+
+                const idOrderCart = JSON.stringify(idOrder)
+
+                // console.log(form);
+                const response = await API.post(`/transaction/${id}`, formData, config)
+                const deleteCartList = await API.delete(`/cart/${idOrderCart}`)
+                getOrders()
+
+                // console.log(response);
+                return  navigate("/user-profile")
+
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     // console.log(orders);
     
-    const { id } = useParams()
 
     // console.log(id);
     
@@ -39,8 +104,10 @@ export default function CartPage() {
     const getOrders = async () => {
         try {
 
-            const response = await API.get(`/order-list/${id}`)
-            setOrders(response.data.data.order) 
+            const response = await API.get(`/cart/${id}`)
+            setOrders(response.data.data.orderList) 
+            console.log(response.data.data) 
+
            
         } catch (error) {
             console.log(error)
@@ -49,7 +116,7 @@ export default function CartPage() {
 
 
     useEffect(() => {
-        getOrders()
+       return getOrders()
     }, [])
 
 
@@ -68,6 +135,8 @@ export default function CartPage() {
         }
     }
     useEffect(() => {
+
+        
         if (deleteOrder) {
 
           handleClose();
@@ -78,17 +147,20 @@ export default function CartPage() {
       }, [deleteOrder]);
 
     
-      const totalPay = orders.reduce((subTotal, element) => {
-            return subTotal + element.sub_total
-        }, 0)
+    const totalPay = orders.reduce((subTotal, element) => {
+        return subTotal + element.sub_total
+    }, 0)
 
     const idOrder = orders.map((idOrder) => idOrder.id)
+    // console.log(idOrder);
 
-    console.log(idOrder);
+    
+    
+
 
   return (
     <>
-    <NavUser />
+    <NavUser  />
 
       <div className='CartPage mb-5'>
         <Container>
@@ -196,6 +268,8 @@ export default function CartPage() {
                                         <Form.Label htmlFor='input-attache'>
                                             <Form.Control 
                                                 id="input-attache"
+                                                name="image"
+                                                onChange={handleChange}
                                                 className="red-opacity  p-2 mb-4 border-2 border-danger w-100 input-file "
                                                 type="file" 
                                             />
@@ -228,37 +302,56 @@ export default function CartPage() {
                                 <Form.Control
                                     className="red-opacity mb-4 p-2 border-2 border-danger"
                                     type="text"
+                                    name="fullname"
                                     id="inputName"
                                     placeholder="Full Name"
+                                    onChange={handleChange}
+
                                 />  
                                                 
                                 <Form.Control
                                     className="red-opacity mb-4 p-2 border-2 border-danger"
                                     type="email"
+                                    name="email"
+
                                     id="inputEmail"
                                     placeholder="Email"
+                                    onChange={handleChange}
+
                                 />
                                 <Form.Control
                                     className="red-opacity  p-2 mb-4 border-2 border-danger"
                                     type="number"
+                                    name="phone"
+
                                     id="inputPhone"
                                     placeholder="Phone"
+                                    onChange={handleChange}
+
                                 />
                                 <Form.Control
                                     className="red-opacity  p-2 mb-4 border-2 border-danger"
                                     type="number"
+                                    name="poscode"
+
                                     id="inputPosCode"
                                     placeholder="Pos Code"
+                                    onChange={handleChange}
+
                                 /> 
                                 <Form.Control
                                     className="red-opacity  p-2 mb-4 border-2 border-danger"
                                     as="textarea"
+                                    name="address"
+
                                     placeholder="Address"
                                     id="inputAddress"
+                                    onChange={handleChange}
+
                                     style={{ height: '150px' }}
                                 />
 
-                                <Button onClick={() => {setModalPopupOrder(!modalPopupOrder)}} className="btn-red bg-red mb-3 w-100" variant="light" >Pay</Button>
+                                <Button onClick={handleSubmit} className="btn-red bg-red mb-3 w-100" variant="light" >Pay</Button>
                             </Form.Group>
 
                             

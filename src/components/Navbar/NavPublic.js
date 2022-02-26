@@ -20,6 +20,7 @@ export default function NavPublic ()  {
         setModalLogin(true)
         return(setModalRegister(false))
      }
+     
     
   return (
 

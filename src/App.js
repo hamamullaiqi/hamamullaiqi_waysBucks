@@ -41,13 +41,13 @@ function App() {
   useEffect(() => {
     // Redirect Auth
     if (!state.isLogin && !state.isAdminLogin) {
-      navigate("/landing")
+        return navigate("/landing")
     } else {
       if (state.user.status === "admin") {
-        navigate("/income-transaction")
+        return navigate("/income-transaction")
 
       } else if (state.user.status === "customer") {
-        navigate("/landing")
+        return navigate("/landing")
 
       }
     }

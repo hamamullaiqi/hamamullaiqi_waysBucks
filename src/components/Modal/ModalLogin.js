@@ -13,10 +13,7 @@ import { API } from '../../config/api'
 
 export default function ModalLogin(props) {
 
-
     
-    
-
     const [state, dispatch] = useContext(UserContext)
     // console.log(state);
 
@@ -37,6 +34,7 @@ export default function ModalLogin(props) {
             [e.target.name] : e.target.value,
         })
     }
+
     const  handleLogin = async (e) => {
        try {
            e.preventDefault()
@@ -50,7 +48,7 @@ export default function ModalLogin(props) {
            const body = JSON.stringify(form)
 
            const response = await API.post("/login" , body, config,)
-           console.log(response.data.data.user);
+        //    console.log(response.data.data.user);
 
            if (response?.status == 200) {
             // Send data to useContext
@@ -78,14 +76,6 @@ export default function ModalLogin(props) {
                 
             } 
 
-            
-
-          
-            // if (response.data.data.user.status == "admin") {
-            //     navigate("/income-transaction");
-            //   } else {
-            //     navigate("/");
-            //   }
            
        } catch (error) {    
            console.log(error);
