@@ -18,7 +18,7 @@
         const getOrderItem = async (id) => {
             try {
                 
-                const response = await API.get(`/transaction/${id}`)
+                const response = await API.get(`/transaction-user/${id}`)
                 setOrderItem(response.data.data.dataTransaction)
                 console.log(response.data.data)
 

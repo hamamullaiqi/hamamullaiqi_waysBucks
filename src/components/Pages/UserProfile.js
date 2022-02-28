@@ -16,7 +16,7 @@ const UserProfile = () => {
     const [user, setUser] = useState([])
     const [userProfile, setUserProfile] = useState([])
     const [transaction, setTransaction] = useState([])
-    // console.log(transaction);
+    console.log(transaction);
 
 
     
@@ -71,7 +71,7 @@ useEffect(()=>{
     return () => 
         setTransaction([])
     
-},[])
+},[userProfile])
 
 
     

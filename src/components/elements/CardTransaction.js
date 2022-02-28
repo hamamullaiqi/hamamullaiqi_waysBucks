@@ -1,10 +1,60 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+
 import { Card,Row, Col,Badge } from 'react-bootstrap'
+import { API } from '../../config/api';
+
 const convertRupiah = require('rupiah-format')
 
 
 function CardTransaction({transaction}) {
     console.log(transaction);
+
+   
+    const [idTransaction, setIdTransaction] = useState(null);
+
+
+
+
+    const handleSuccess = (id, status) => {
+        //    setIdTransaction(id)
+            status = "Success"
+           updateById(id, status)   
+           
+            
+        }
+
+    const updateById = async (id, status) => {
+        try {
+            
+            
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+              };
+
+            const dataUpdate = {
+                status : status
+            }
+            const body = JSON.stringify(dataUpdate);
+            console.log(id);
+            const response = await API.patch(`/transaction/${id}`, body, config)
+            console.log(response);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    
+
+    useEffect(() => {
+        
+        updateById(idTransaction)
+
+
+      }, [transaction]);
 
     
   return (
@@ -83,9 +133,38 @@ function CardTransaction({transaction}) {
                                     
                                 </div>
                                 <div>
-                                    <Badge bg="info px-3 py-2 w-100 text-bold mb-3">
+                                {transaction.status === "Pending Accept" ? 
+                                 (
+                                    <Badge bg="warning px-3 py-2 w-100 text-bold mb-3">
                                         {transaction.status}
                                     </Badge>
+
+                                 ) : transaction.status === "Waiting Delivery" ? 
+                                 (
+                                    <Badge bg="warning px-3 py-2 w-100 text-bold mb-3">
+                                        {transaction.status}
+                                    </Badge>
+
+                                 ) : transaction.status === "On The Way" ? 
+                                 (
+                                    <Badge onClick={() => handleSuccess(transaction.id)} bg="primary px-3 py-2 w-100 text-bold mb-3 btn">
+                                        {transaction.status}
+                                    </Badge>
+                                    
+                                 ) : transaction.status === "Success" ? 
+                                 (
+                                    <Badge bg="success px-3 py-2 w-100 text-bold mb-3">
+                                        {transaction.status}
+                                    </Badge>
+                                    
+                                 ) : 
+                                 (
+                                    <Badge bg="danger px-3 py-2 w-100 text-bold mb-3">
+                                        {transaction.status}
+                                    </Badge>
+
+                                 )}
+                                    
                                 </div>
                                 <div>
                                     <p className='text-bold'>Sub Total : </p>

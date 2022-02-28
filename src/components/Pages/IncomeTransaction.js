@@ -88,6 +88,8 @@ const IncomeTransaction = () => {
             console.log(response);
             getTransaction()
         } catch (error) {
+            console.log(error);
+
             
         }
     }

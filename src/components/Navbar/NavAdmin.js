@@ -70,7 +70,7 @@ const NavAdmin = () => {
                                         </Link>
                                     </Dropdown.Item>
                                     <Dropdown.Divider />
-                                    <Dropdown.Item onClick={handleIncomeTransaction} >
+                                    <Dropdown.Item  >
                                         <Link to="/add-topping">
                                             <span>
                                                 <img

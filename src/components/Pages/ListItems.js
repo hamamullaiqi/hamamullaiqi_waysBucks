@@ -2,7 +2,7 @@
 import { Button, Container, Table } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 import { useNavigate} from "react-router-dom"
-
+import ModalDelete from '../Modal/ModalDelete';
 
 
 import { API } from '../../config/api'
@@ -17,6 +17,22 @@ const ListItems = () => {
   const navigate = useNavigate()
 
 
+    //product
+    const [modalDeleteProduct, setModalDeleteProduct] = useState(false)
+    const [idDelete, setIdDelete] = useState(null);
+    const [deleteProduct, setDeleteProduct] = useState(null);
+    const handleClose = () => setModalDeleteProduct(false);
+    const handleShow = () => setModalDeleteProduct(true);
+
+
+    //topping
+    const [modalDeleteTopping, setModalDeleteTopping] = useState(false)
+    const [idDeleteTopping, setIdDeleteTopping] = useState(null);
+    const [deleteTopping, setDeleteTopping] = useState(null);
+    const handleCloseModalTopping = () => setModalDeleteTopping(false);
+    const handleShowModalTopping = () => setModalDeleteTopping(true);
+
+
   const [products, setProducts] = useState([])
   const [toppings, setToppings] = useState([])
 
@@ -26,7 +42,7 @@ const ListItems = () => {
   }
 
   const handleAddTopping = () =>{
-    navigate("/add-toping")
+    navigate("/add-topping")
   }
 
 
@@ -64,6 +80,67 @@ useEffect(() => {
   return getProduct()
   
 },[])
+
+
+//product
+
+const handleDeleteProducts = (id) => {
+  console.log(id);
+  setIdDelete(id)
+  handleShow()
+}
+const deleteProductById = async (id) => {
+  try {
+      await API.delete(`/product/${id}`)
+      getProduct()
+      
+      
+  } catch (error) {
+      console.log();
+  }
+}
+useEffect(() => {
+
+  
+  if (deleteProduct) {
+
+    handleClose();
+
+    deleteProductById(idDelete);
+    setDeleteProduct(null);
+    
+  }
+}, [deleteProduct]);
+
+
+//topping
+const handleDeleteTopping = (id) => {
+  console.log(id);
+  setIdDeleteTopping(id)
+  handleShowModalTopping()
+}
+const deleteToppingById = async (id) => {
+  try {
+      await API.delete(`/topping/${id}`)
+      getToppings()
+      
+      
+  } catch (error) {
+      console.log();
+  }
+}
+useEffect(() => {
+
+  
+  if (deleteTopping) {
+
+    handleCloseModalTopping();
+
+    deleteToppingById(idDeleteTopping);
+    setDeleteTopping(null);
+    
+  }
+}, [deleteTopping]);
 
   return (
     <>
@@ -113,8 +190,8 @@ useEffect(() => {
                       
                         <td className='d-flex justify-content-center'>
 
-                          <Button variant="warning me-3" >Edit</Button>
-                          <Button variant="danger">delete</Button>
+                          <Button variant="warning me-3"  >Edit</Button>
+                          <Button variant="danger" onClick={() => handleDeleteProducts(item.id)}>delete</Button>
                           
                         </td>
 
@@ -174,8 +251,8 @@ useEffect(() => {
                       
                         <td className='d-flex justify-content-center'>
 
-                          <Button variant="warning me-3" >Edit</Button>
-                          <Button variant="danger">delete</Button>
+                          <Button variant="warning me-3"  >Edit</Button>
+                          <Button variant="danger"onClick={() => handleDeleteTopping(item.id)} >delete</Button>
                           
                         </td>
 
@@ -199,6 +276,10 @@ useEffect(() => {
 
 
         </Container>
+        <ModalDelete show={modalDeleteProduct} setDeleteOrder={setDeleteProduct} handleClose={handleClose}/>
+        <ModalDelete show={modalDeleteTopping} setDeleteOrder={setDeleteTopping} handleClose={handleCloseModalTopping}/>
+
+
 
 
       </div>
