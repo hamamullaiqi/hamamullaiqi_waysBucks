@@ -123,7 +123,7 @@ function App() {
           {/* Admin Route */}
           {/* <Route exact path='/' element={<PrivateRouteAdmin />} > */}
             <Route exact path='/add-product' element={<AddProduct />} />
-            <Route exact path='/add-toping' element={<AddToping />} />
+            <Route exact path='/add-topping' element={<AddToping />} />
             <Route exact path='/income-transaction' element={<IncomeTransaction />} />
             <Route exact path='/list-items' element={<ListItems />} />
             <Route exact path='' element={<NotFound />} /> 

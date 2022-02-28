@@ -7,9 +7,9 @@ import NavAdmin from '../Navbar/NavAdmin';
 
 export default function AddProduct()  {
     const navigate = useNavigate()
-    //image privew
+
     const [preview, setPreview] = useState(null); 
-    //store wih useState 
+ 
     
     const [form, setForm] = useState({
         title: "",

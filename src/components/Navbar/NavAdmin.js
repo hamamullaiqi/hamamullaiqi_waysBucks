@@ -56,7 +56,7 @@ const NavAdmin = () => {
                                     /> 
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className=" text-bold text-dark">
-                                    {/* <Dropdown.Item >
+                                    <Dropdown.Item >
                                         <Link to="/add-product">
                                             <span>
                                                 <img
@@ -69,9 +69,9 @@ const NavAdmin = () => {
                                             </span>Add Product
                                         </Link>
                                     </Dropdown.Item>
-                                    <Dropdown.Divider /> */}
+                                    <Dropdown.Divider />
                                     <Dropdown.Item onClick={handleIncomeTransaction} >
-                                        {/* <Link to="/income-transaction"> */}
+                                        <Link to="/add-topping">
                                             <span>
                                                 <img
                                                     src="./img/add-toping.svg" 
@@ -80,8 +80,8 @@ const NavAdmin = () => {
                                                     height={30}
                                                     className="me-3"
                                                 />
-                                            </span>Income Transaction
-                                        {/* </Link> */}
+                                            </span>Add Topping
+                                        </Link>
                                     </Dropdown.Item>
                                     <Dropdown.Divider />   
                                     <Dropdown.Item onClick={handleListItems}>

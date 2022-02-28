@@ -18,12 +18,13 @@ export default function ModalRegister(props) {
     const [form, setForm] = useState({
         fullname : "",
         email: "",
-        password : ""
+        password : "",
+        
     })
 
     
     
-    const { fullname, email, password } = form
+    const { fullname, email, password, image } = form
 
     const handleChange = (e) => {
         setForm({

@@ -12,10 +12,13 @@ const NavUser = () => {
     const [state, dispatch] = useContext(UserContext)
 
     const [orders, setOrders] = useState([])
-    // console.log(orders);
+    const [userProfile, setUserProfile] = useState([])
+
+    console.log(userProfile);
 
     
     const { id } = state.user
+
 
 
     const getOrders = async () => {
@@ -30,12 +33,38 @@ const NavUser = () => {
             console.log(error)
         }
     }
+    
+    const getProfile = async () => {
+        try {
+
+            const response = await API.get(`/profile/${id}`)
+            setUserProfile(response.data.data.dataProfile)      
+
+        } catch (error) {
+            console.log(error);
+        }
+
+        
+    }
+    
+
+//     
+
+   useEffect(()=>{
+    getProfile()
+    return () => 
+        setUserProfile([])
+    
+},[])
+    
 
     
 
     useEffect(() => {
-        return  getOrders()
-    }, [state])
+        getOrders()
+        return () => 
+            setOrders([])
+    }, [])
 
 
     const handleLogout = () => {
@@ -87,10 +116,21 @@ const NavUser = () => {
                         
                         <Dropdown align="end" id="dropdown-menu-align-end">
                             <Dropdown.Toggle  as={Nav.Link} className='Dropdown-Toggle' >
-                                <img
-                                    src="../img/avatar-user.png"
-                                    alt="avatar-user"
-                                /> 
+                              
+                                    <img 
+                                        src={userProfile.image}
+                                        alt="user-image"
+                                        style={{
+                                            width : "4rem",
+                                            height : "4rem",
+                                            objectFit :"cover",
+                                            border : "3px solid #BD0707"
+                                            
+                                        }}
+                                        className="rounded-circle"
+                                    /> 
+                                
+                                
                             </Dropdown.Toggle>
                             <Dropdown.Menu className=" text-bold text-dark">
                                 <Dropdown.Item onClick={() => navigate(`/user-profile/${id}`)} >
