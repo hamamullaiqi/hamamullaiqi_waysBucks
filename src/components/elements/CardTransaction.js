@@ -6,13 +6,6 @@ const convertRupiah = require('rupiah-format')
 function CardTransaction({transaction}) {
     console.log(transaction);
 
-
-    
-
-
-
-
-
     
   return (
             <div>

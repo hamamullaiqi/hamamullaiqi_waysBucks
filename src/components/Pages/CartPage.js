@@ -130,6 +130,7 @@ export default function CartPage() {
 
 
     const handleDelete = (id) => {
+        console.log(id);
         setIdDelete(id)
         handleShow()
     }
